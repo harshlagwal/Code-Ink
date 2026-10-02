@@ -5,7 +5,7 @@
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <!-- Primary Homepage & Cover -->
   <url>
-    <loc>https://code-ink.vercel.app/</loc>
+    <loc>https://code-ink-theta.vercel.app/</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -13,7 +13,7 @@
 
   <!-- 100 Verified Developer Tools Directory -->
   <url>
-    <loc>https://code-ink.vercel.app/?view=tools</loc>
+    <loc>https://code-ink-theta.vercel.app/?view=tools</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -21,7 +21,7 @@
 
   <!-- Interactive Curriculum Notebook -->
   <url>
-    <loc>https://code-ink.vercel.app/?view=notebook</loc>
+    <loc>https://code-ink-theta.vercel.app/?view=notebook</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -29,7 +29,7 @@
 
   <!-- C Programming Track -->
   <url>
-    <loc>https://code-ink.vercel.app/?subject=c</loc>
+    <loc>https://code-ink-theta.vercel.app/?subject=c</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -37,7 +37,7 @@
 
   <!-- C++ Programming Track -->
   <url>
-    <loc>https://code-ink.vercel.app/?subject=cpp</loc>
+    <loc>https://code-ink-theta.vercel.app/?subject=cpp</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -45,7 +45,7 @@
 
   <!-- Python Track -->
   <url>
-    <loc>https://code-ink.vercel.app/?subject=python</loc>
+    <loc>https://code-ink-theta.vercel.app/?subject=python</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -53,7 +53,7 @@
 
   <!-- Java Track -->
   <url>
-    <loc>https://code-ink.vercel.app/?subject=java</loc>
+    <loc>https://code-ink-theta.vercel.app/?subject=java</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -61,7 +61,7 @@
 
   <!-- JavaScript Track -->
   <url>
-    <loc>https://code-ink.vercel.app/?subject=javascript</loc>
+    <loc>https://code-ink-theta.vercel.app/?subject=javascript</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -69,7 +69,7 @@
 
   <!-- Data Structures & Algorithms Track -->
   <url>
-    <loc>https://code-ink.vercel.app/?subject=dsa</loc>
+    <loc>https://code-ink-theta.vercel.app/?subject=dsa</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

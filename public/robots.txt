@@ -2,6 +2,5 @@
 User-agent: *
 Allow: /
 
-# Host & Sitemap (Update domain if deploying on custom domain or vercel.app)
-Sitemap: https://codeink.dev/sitemap.xml
-Sitemap: https://code-ink.vercel.app/sitemap.xml
+# Sitemap location
+Sitemap: https://code-ink-theta.vercel.app/sitemap.xml
