@@ -323,7 +323,7 @@ export function PhysicalNotebookSpread({
       )}
 
       {/* Top Page Bar: Quick Actions, Final Exam Trigger & Navigation Hints */}
-      <div className="w-full flex items-center justify-between pb-2 px-1 text-xs text-stone-600 select-none">
+      <div className="w-full flex items-center justify-between pb-1.5 px-1 text-xs text-stone-600 select-none">
         <div className="flex items-center gap-2 sm:gap-3">
           <button
             type="button"
@@ -425,7 +425,7 @@ export function PhysicalNotebookSpread({
         </button>
 
         {/* Hardcover Base */}
-        <div className="relative w-full p-2 sm:p-2.5 md:p-3 bg-[#1E232A] rounded-xl sm:rounded-2xl book-hardcover-base border border-stone-800">
+        <div className="relative w-full p-2 sm:p-2.5 bg-[#1E232A] rounded-xl sm:rounded-2xl book-hardcover-base border border-stone-800">
           <div
             className="absolute inset-0 rounded-xl sm:rounded-2xl opacity-10 pointer-events-none"
             style={{
@@ -435,7 +435,7 @@ export function PhysicalNotebookSpread({
           />
 
           {/* Book Paper Core */}
-          <div className="relative flex w-full h-[560px] sm:h-[600px] md:h-[calc(100vh-190px)] md:min-h-[500px] md:max-h-[720px] rounded-lg sm:rounded-xl overflow-hidden transform-style-3d bg-[#FFFDF7]">
+          <div className="relative flex w-full h-[520px] sm:h-[560px] md:h-[calc(100vh-235px)] md:min-h-[420px] md:max-h-[660px] rounded-lg sm:rounded-xl overflow-hidden transform-style-3d bg-[#FFFDF7]">
             {/* ---------------- LEFT PAGE (Theory, Syntax, Architecture, Notes) ---------------- */}
             <div
               className={`w-full md:w-1/2 h-full p-4 sm:p-5 lg:p-6 flex flex-col justify-between relative book-page-edges-left ${paperClass} notebook-margin-line ${
@@ -1091,7 +1091,7 @@ export function PhysicalNotebookSpread({
         </div>
 
         {/* Ambient bottom spread turn controls (Desktop) */}
-        <div className="hidden md:flex items-center justify-between mt-4 px-2 text-xs select-none">
+        <div className="hidden md:flex items-center justify-between mt-1.5 px-2 text-xs select-none">
           <button
             type="button"
             onClick={handleTriggerPrev}
