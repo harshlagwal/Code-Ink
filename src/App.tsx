@@ -369,7 +369,7 @@ export default function App() {
 
   return (
     <>
-      <div className={`min-h-screen bg-[#F7F3EA] text-[#171717] flex flex-col font-sans tool-selection-${selectedTool} ${(currentView === 'ai-desk' || currentView === 'whiteboard') ? 'pb-0 overflow-hidden h-screen bg-[#1A1918]' : 'pb-16'} ${isFinalPaperOpen ? 'print:hidden' : ''}`}>
+      <div className={`min-h-screen bg-[#F7F3EA] text-[#171717] flex flex-col font-sans tool-selection-${selectedTool} ${(currentView === 'ai-desk' || currentView === 'whiteboard') ? 'pb-0 overflow-hidden h-screen bg-[#1A1918]' : currentView === 'notebook' ? 'pb-2 sm:pb-3' : 'pb-16'} ${isFinalPaperOpen ? 'print:hidden' : ''}`}>
       {/* Top Navbar */}
       <Navbar
         currentView={currentView}
@@ -397,6 +397,8 @@ export default function App() {
       <div className={`flex-1 w-full flex flex-col transition-all duration-300 ${
         currentView === 'ai-desk'
           ? 'p-0 max-w-full overflow-hidden'
+          : currentView === 'notebook'
+          ? `mx-auto px-3 sm:px-5 md:px-6 pt-2 pb-2 sm:pb-3 ${isIndexOpen ? 'max-w-7xl' : 'max-w-[1520px]'}`
           : `mx-auto p-3 sm:p-5 md:p-6 lg:p-8 ${isIndexOpen ? 'max-w-7xl' : 'max-w-[1520px]'}`
       }`}>
         {currentView === 'home' && (
@@ -442,7 +444,7 @@ export default function App() {
           ) : (
             <div className="flex-1 flex flex-col">
               {/* Top Workspace Sub-Toolbar: Index Toggle & Chapter Breadcrumb */}
-              <div className="flex items-center justify-between gap-4 mb-3 sm:mb-4 select-none flex-wrap">
+              <div className="flex items-center justify-between gap-4 mb-2 sm:mb-2.5 select-none flex-wrap">
                 <div className="flex items-center gap-3">
                   <button
                     type="button"
