@@ -206,6 +206,7 @@ export function EngineeringDraftingDesk({
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const inspectorRef = useRef<HTMLDivElement | null>(null);
 
   // Reliable programmatic focus when sticky note is placed
   useEffect(() => {
@@ -500,8 +501,8 @@ export function EngineeringDraftingDesk({
         ctx.restore();
       }
 
-      // Highlight outline for selected element in Move mode (for non-arrow elements)
-      if (activeTool === 'move' && selectedElementId === el.id && el.type !== 'arrow') {
+      // Highlight outline for selected element (for non-arrow elements)
+      if (selectedElementId === el.id && el.type !== 'arrow' && (!isDrawing || activeTool === 'move')) {
         ctx.save();
         ctx.strokeStyle = '#38BDF8';
         ctx.lineWidth = 1.5;
@@ -564,6 +565,15 @@ export function EngineeringDraftingDesk({
         document.activeElement === textInputRef.current ||
         document.activeElement === stickyInputRef.current
       ) return;
+
+      // Do not intercept wheel scrolling when cursor is inside the Styles & Properties inspector
+      if (
+        inspectorRef.current &&
+        e.target instanceof Node &&
+        inspectorRef.current.contains(e.target)
+      ) {
+        return;
+      }
 
       e.preventDefault();
 
@@ -697,9 +707,10 @@ export function EngineeringDraftingDesk({
       const lines = el.text.split('\n');
       const maxLineLen = Math.max(...lines.map(l => l.length), 1);
       const charWidth = sizeMeta.px * 0.65;
-      const textW = Math.max(50, maxLineLen * charWidth + 20);
-      const textH = Math.max(sizeMeta.lineHeight, lines.length * sizeMeta.lineHeight + 8);
-      return pt.x >= p.x - r && pt.x <= p.x + textW + r && pt.y >= p.y - r && pt.y <= p.y + textH + r;
+      const textW = Math.max(50, maxLineLen * charWidth + 24);
+      const textH = Math.max(sizeMeta.lineHeight, lines.length * sizeMeta.lineHeight + 10);
+      const textPad = 14;
+      return pt.x >= p.x - r - textPad && pt.x <= p.x + textW + r + textPad && pt.y >= p.y - r - textPad && pt.y <= p.y + textH + r + textPad;
     }
     if (el.type === 'sticky' && el.points.length > 0) {
       const p = el.points[0];
@@ -1012,6 +1023,7 @@ export function EngineeringDraftingDesk({
     if (!currentElement) return;
     const updated = [...elements, currentElement];
     commitElements(updated);
+    setSelectedElementId(currentElement.id);
     setCurrentElement(null);
   };
 
@@ -1225,7 +1237,11 @@ export function EngineeringDraftingDesk({
 
   const handleUpdateColor = (color: string) => {
     setCurrentColor(color);
-    const targetId = editingElementId || selectedElementId;
+    let targetId = editingElementId || selectedElementId;
+    if (!targetId && elements.length > 0) {
+      targetId = elements[elements.length - 1].id;
+      setSelectedElementId(targetId);
+    }
     if (targetId) {
       const updated = elements.map(el =>
         el.id === targetId
@@ -1242,7 +1258,11 @@ export function EngineeringDraftingDesk({
 
   const handleUpdateStrokeStyle = (style: StrokeStyle) => {
     setActiveStrokeStyle(style);
-    const targetId = editingElementId || selectedElementId;
+    let targetId = editingElementId || selectedElementId;
+    if (!targetId && elements.length > 0) {
+      targetId = elements[elements.length - 1].id;
+      setSelectedElementId(targetId);
+    }
     if (targetId) {
       const updated = elements.map(el =>
         el.id === targetId ? { ...el, strokeStyle: style } : el
@@ -1253,7 +1273,14 @@ export function EngineeringDraftingDesk({
 
   const handleUpdateFillStyle = (style: FillStyle) => {
     setActiveFillStyle(style);
-    const targetId = editingElementId || selectedElementId;
+    let targetId = editingElementId || selectedElementId;
+    if (!targetId) {
+      const lastShape = [...elements].reverse().find(el => el.type === 'rectangle' || el.type === 'circle');
+      if (lastShape) {
+        targetId = lastShape.id;
+        setSelectedElementId(lastShape.id);
+      }
+    }
     if (targetId) {
       const updated = elements.map(el =>
         el.id === targetId ? { ...el, fillStyle: style } : el
@@ -1266,7 +1293,12 @@ export function EngineeringDraftingDesk({
     setActiveFontSize(size);
     const mappedWidth = size === 'S' ? 2 : size === 'M' ? 4 : size === 'L' ? 8 : 12;
     setStrokeWidth(mappedWidth);
-    const targetId = editingElementId || selectedElementId;
+    let targetId = editingElementId || selectedElementId;
+    if (!targetId && elements.length > 0) {
+      const lastEl = elements[elements.length - 1];
+      targetId = lastEl.id;
+      setSelectedElementId(lastEl.id);
+    }
     if (targetId) {
       const updated = elements.map(el =>
         el.id === targetId ? { ...el, fontSize: size, strokeWidth: mappedWidth } : el
@@ -1277,7 +1309,14 @@ export function EngineeringDraftingDesk({
 
   const handleUpdateFontFamily = (family: FontFamily) => {
     setActiveFontFamily(family);
-    const targetId = editingElementId || selectedElementId;
+    let targetId = editingElementId || selectedElementId;
+    if (!targetId) {
+      const lastText = [...elements].reverse().find(el => el.type === 'text');
+      if (lastText) {
+        targetId = lastText.id;
+        setSelectedElementId(lastText.id);
+      }
+    }
     if (targetId) {
       const updated = elements.map(el =>
         el.id === targetId ? { ...el, fontFamily: family } : el
@@ -1870,10 +1909,12 @@ export function EngineeringDraftingDesk({
         {/* Floating Right Inspector / Properties Panel (tldraw style) */}
         {isInspectorOpen && (
           <div
+            ref={inspectorRef}
             onMouseDown={(e) => e.stopPropagation()}
             onTouchStart={(e) => e.stopPropagation()}
             onClick={(e) => e.stopPropagation()}
-            className="absolute top-4 right-4 z-40 w-56 bg-[#1E1E1E]/95 backdrop-blur-md border border-stone-800 rounded-2xl shadow-2xl p-3 flex flex-col gap-3 select-none animate-in fade-in slide-in-from-right-2 duration-150"
+            onWheel={(e) => e.stopPropagation()}
+            className="absolute top-4 right-4 z-40 w-60 max-h-[calc(100vh-130px)] sm:max-h-[calc(100%-2rem)] bg-[#1E1E1E]/95 backdrop-blur-md border border-stone-800 rounded-2xl shadow-2xl p-3 flex flex-col gap-2.5 select-none overflow-y-auto overscroll-contain animate-in fade-in slide-in-from-right-2 duration-150 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-stone-700 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent"
           >
             {/* Header */}
             <div className="flex items-center justify-between border-b border-stone-800 pb-2">
@@ -1881,20 +1922,34 @@ export function EngineeringDraftingDesk({
                 <SlidersHorizontal className="w-3.5 h-3.5 text-blue-400" />
                 <span>Styles & Properties</span>
               </div>
-              <button
-                type="button"
-                onClick={() => setIsInspectorOpen(false)}
-                className="text-stone-400 hover:text-white p-1 rounded-md hover:bg-stone-800 transition-colors cursor-pointer"
-                title="Collapse Panel"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
+              <div className="flex items-center gap-1.5">
+                {selectedElement ? (
+                  <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30 capitalize">
+                    {selectedElement.type}
+                  </span>
+                ) : (
+                  <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-stone-800/80 text-stone-400">
+                    Default
+                  </span>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setIsInspectorOpen(false)}
+                  className="text-stone-400 hover:text-white p-1 rounded-md hover:bg-stone-800 transition-colors cursor-pointer"
+                  title="Collapse Panel"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </div>
             </div>
 
             {/* 12 Color Palette Swatches */}
             <div>
-              <div className="text-[10px] font-mono text-stone-400 uppercase tracking-wider mb-1.5">Color</div>
-              <div className="grid grid-cols-6 gap-1.5">
+              <div className="text-[10px] font-mono text-stone-400 uppercase tracking-wider mb-1 flex items-center justify-between">
+                <span>Color</span>
+                <span className="text-[9px] text-stone-500 font-normal">{currentColor}</span>
+              </div>
+              <div className="grid grid-cols-6 gap-1">
                 {TL_COLORS.map((c) => (
                   <button
                     key={c.name}
@@ -1904,7 +1959,7 @@ export function EngineeringDraftingDesk({
                     style={{ backgroundColor: c.color }}
                     className={`w-6 h-6 rounded-full transition-transform cursor-pointer relative ${
                       currentColor.toLowerCase() === c.color.toLowerCase()
-                        ? 'ring-2 ring-white ring-offset-2 ring-offset-stone-900 scale-110'
+                        ? 'ring-2 ring-white ring-offset-2 ring-offset-stone-900 scale-110 z-10'
                         : 'hover:scale-110 border border-white/10'
                     }`}
                     title={c.name}
@@ -1915,7 +1970,7 @@ export function EngineeringDraftingDesk({
 
             {/* Fill Style */}
             <div>
-              <div className="text-[10px] font-mono text-stone-400 uppercase tracking-wider mb-1.5">Fill</div>
+              <div className="text-[10px] font-mono text-stone-400 uppercase tracking-wider mb-1">Fill</div>
               <div className="grid grid-cols-3 gap-1 bg-stone-900/80 p-1 rounded-xl border border-stone-800">
                 <button
                   type="button"
@@ -1961,7 +2016,7 @@ export function EngineeringDraftingDesk({
 
             {/* Stroke Dash Style */}
             <div>
-              <div className="text-[10px] font-mono text-stone-400 uppercase tracking-wider mb-1.5">Stroke Dash</div>
+              <div className="text-[10px] font-mono text-stone-400 uppercase tracking-wider mb-1">Stroke Dash</div>
               <div className="grid grid-cols-3 gap-1 bg-stone-900/80 p-1 rounded-xl border border-stone-800">
                 <button
                   type="button"
@@ -2007,7 +2062,7 @@ export function EngineeringDraftingDesk({
 
             {/* Size (S, M, L, XL) */}
             <div>
-              <div className="text-[10px] font-mono text-stone-400 uppercase tracking-wider mb-1.5">Size</div>
+              <div className="text-[10px] font-mono text-stone-400 uppercase tracking-wider mb-1">Size</div>
               <div className="grid grid-cols-4 gap-1 bg-stone-900/80 p-1 rounded-xl border border-stone-800">
                 {(['S', 'M', 'L', 'XL'] as FontSize[]).map((sz) => (
                   <button
@@ -2028,8 +2083,11 @@ export function EngineeringDraftingDesk({
             </div>
 
             {/* Typography Font Family */}
-            <div>
-              <div className="text-[10px] font-mono text-stone-400 uppercase tracking-wider mb-1.5">Font Family</div>
+            <div className="pb-2">
+              <div className="text-[10px] font-mono text-stone-400 uppercase tracking-wider mb-1 flex items-center justify-between">
+                <span>Font Family</span>
+                <span className="text-[9px] text-stone-500 font-normal">{FONT_FAMILIES[activeFontFamily]?.label || 'Mono'}</span>
+              </div>
               <div className="grid grid-cols-2 gap-1.5">
                 {(Object.keys(FONT_FAMILIES) as FontFamily[]).map((f) => {
                   const meta = FONT_FAMILIES[f];
@@ -2040,14 +2098,15 @@ export function EngineeringDraftingDesk({
                       onMouseDown={(e) => e.preventDefault()}
                       onClick={() => handleUpdateFontFamily(f)}
                       style={{ fontFamily: meta.font }}
-                      className={`px-2 py-1.5 text-xs rounded-xl border transition-all text-left flex items-center justify-between cursor-pointer ${
+                      className={`px-2.5 py-1.5 text-xs rounded-xl border transition-all text-left flex items-center justify-between cursor-pointer ${
                         activeFontFamily === f
-                          ? 'bg-[#2457D6]/20 border-blue-500 text-blue-200 font-bold'
+                          ? 'bg-[#2457D6]/20 border-blue-500 text-blue-200 font-bold shadow-xs'
                           : 'bg-stone-900/60 border-stone-800 text-stone-400 hover:text-stone-200 hover:border-stone-700'
                       }`}
+                      title={`${meta.name} (${meta.label})`}
                     >
-                      <span>{meta.label}</span>
-                      <span className="text-[13px]">{meta.sample}</span>
+                      <span className="font-medium">{meta.label}</span>
+                      <span className="text-[13px] opacity-80">{meta.sample}</span>
                     </button>
                   );
                 })}
