@@ -1914,10 +1914,10 @@ export function EngineeringDraftingDesk({
             onTouchStart={(e) => e.stopPropagation()}
             onClick={(e) => e.stopPropagation()}
             onWheel={(e) => e.stopPropagation()}
-            className="absolute top-4 right-4 z-40 w-60 max-h-[calc(100vh-130px)] sm:max-h-[calc(100%-2rem)] bg-[#1E1E1E]/95 backdrop-blur-md border border-stone-800 rounded-2xl shadow-2xl p-3 flex flex-col gap-2.5 select-none overflow-y-auto overscroll-contain animate-in fade-in slide-in-from-right-2 duration-150 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-stone-700 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent"
+            className="absolute top-4 right-4 z-40 w-56 bg-[#1E1E1E]/95 backdrop-blur-md border border-stone-800 rounded-2xl shadow-2xl p-2.5 flex flex-col gap-2 select-none animate-in fade-in slide-in-from-right-2 duration-150"
           >
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-stone-800 pb-2">
+            <div className="flex items-center justify-between border-b border-stone-800 pb-1.5">
               <div className="flex items-center gap-1.5 text-xs font-semibold text-stone-200">
                 <SlidersHorizontal className="w-3.5 h-3.5 text-blue-400" />
                 <span>Styles & Properties</span>
@@ -1949,7 +1949,7 @@ export function EngineeringDraftingDesk({
                 <span>Color</span>
                 <span className="text-[9px] text-stone-500 font-normal">{currentColor}</span>
               </div>
-              <div className="grid grid-cols-6 gap-1">
+              <div className="grid grid-cols-6 gap-1.5">
                 {TL_COLORS.map((c) => (
                   <button
                     key={c.name}
@@ -1957,7 +1957,7 @@ export function EngineeringDraftingDesk({
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={() => handleUpdateColor(c.color)}
                     style={{ backgroundColor: c.color }}
-                    className={`w-6 h-6 rounded-full transition-transform cursor-pointer relative ${
+                    className={`w-5.5 h-5.5 rounded-full transition-transform cursor-pointer relative ${
                       currentColor.toLowerCase() === c.color.toLowerCase()
                         ? 'ring-2 ring-white ring-offset-2 ring-offset-stone-900 scale-110 z-10'
                         : 'hover:scale-110 border border-white/10'
@@ -1971,12 +1971,12 @@ export function EngineeringDraftingDesk({
             {/* Fill Style */}
             <div>
               <div className="text-[10px] font-mono text-stone-400 uppercase tracking-wider mb-1">Fill</div>
-              <div className="grid grid-cols-3 gap-1 bg-stone-900/80 p-1 rounded-xl border border-stone-800">
+              <div className="grid grid-cols-3 gap-1 bg-stone-900/80 p-0.5 rounded-lg border border-stone-800">
                 <button
                   type="button"
                   onMouseDown={(e) => e.preventDefault()}
                   onClick={() => handleUpdateFillStyle('none')}
-                  className={`py-1 text-xs rounded-lg font-medium transition-all cursor-pointer ${
+                  className={`py-1 text-[11px] rounded-md font-medium transition-all cursor-pointer ${
                     activeFillStyle === 'none'
                       ? 'bg-stone-700 text-white shadow-xs font-bold'
                       : 'text-stone-400 hover:text-stone-200'
@@ -1989,7 +1989,7 @@ export function EngineeringDraftingDesk({
                   type="button"
                   onMouseDown={(e) => e.preventDefault()}
                   onClick={() => handleUpdateFillStyle('tint')}
-                  className={`py-1 text-xs rounded-lg font-medium transition-all cursor-pointer ${
+                  className={`py-1 text-[11px] rounded-md font-medium transition-all cursor-pointer ${
                     activeFillStyle === 'tint'
                       ? 'bg-stone-700 text-white shadow-xs font-bold'
                       : 'text-stone-400 hover:text-stone-200'
@@ -2002,7 +2002,7 @@ export function EngineeringDraftingDesk({
                   type="button"
                   onMouseDown={(e) => e.preventDefault()}
                   onClick={() => handleUpdateFillStyle('solid')}
-                  className={`py-1 text-xs rounded-lg font-medium transition-all cursor-pointer ${
+                  className={`py-1 text-[11px] rounded-md font-medium transition-all cursor-pointer ${
                     activeFillStyle === 'solid'
                       ? 'bg-stone-700 text-white shadow-xs font-bold'
                       : 'text-stone-400 hover:text-stone-200'
@@ -2017,12 +2017,12 @@ export function EngineeringDraftingDesk({
             {/* Stroke Dash Style */}
             <div>
               <div className="text-[10px] font-mono text-stone-400 uppercase tracking-wider mb-1">Stroke Dash</div>
-              <div className="grid grid-cols-3 gap-1 bg-stone-900/80 p-1 rounded-xl border border-stone-800">
+              <div className="grid grid-cols-3 gap-1 bg-stone-900/80 p-0.5 rounded-lg border border-stone-800">
                 <button
                   type="button"
                   onMouseDown={(e) => e.preventDefault()}
                   onClick={() => handleUpdateStrokeStyle('solid')}
-                  className={`py-1 text-xs rounded-lg font-medium transition-all cursor-pointer ${
+                  className={`py-0.5 text-xs rounded-md font-medium transition-all cursor-pointer ${
                     activeStrokeStyle === 'solid'
                       ? 'bg-stone-700 text-white shadow-xs font-bold'
                       : 'text-stone-400 hover:text-stone-200'
@@ -2035,7 +2035,7 @@ export function EngineeringDraftingDesk({
                   type="button"
                   onMouseDown={(e) => e.preventDefault()}
                   onClick={() => handleUpdateStrokeStyle('dashed')}
-                  className={`py-1 text-xs rounded-lg font-medium transition-all cursor-pointer ${
+                  className={`py-0.5 text-xs rounded-md font-medium transition-all cursor-pointer ${
                     activeStrokeStyle === 'dashed'
                       ? 'bg-stone-700 text-white shadow-xs font-bold'
                       : 'text-stone-400 hover:text-stone-200'
@@ -2048,7 +2048,7 @@ export function EngineeringDraftingDesk({
                   type="button"
                   onMouseDown={(e) => e.preventDefault()}
                   onClick={() => handleUpdateStrokeStyle('dotted')}
-                  className={`py-1 text-xs rounded-lg font-medium transition-all cursor-pointer ${
+                  className={`py-0.5 text-xs rounded-md font-medium transition-all cursor-pointer ${
                     activeStrokeStyle === 'dotted'
                       ? 'bg-stone-700 text-white shadow-xs font-bold'
                       : 'text-stone-400 hover:text-stone-200'
@@ -2063,14 +2063,14 @@ export function EngineeringDraftingDesk({
             {/* Size (S, M, L, XL) */}
             <div>
               <div className="text-[10px] font-mono text-stone-400 uppercase tracking-wider mb-1">Size</div>
-              <div className="grid grid-cols-4 gap-1 bg-stone-900/80 p-1 rounded-xl border border-stone-800">
+              <div className="grid grid-cols-4 gap-1 bg-stone-900/80 p-0.5 rounded-lg border border-stone-800">
                 {(['S', 'M', 'L', 'XL'] as FontSize[]).map((sz) => (
                   <button
                     key={sz}
                     type="button"
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={() => handleUpdateFontSize(sz)}
-                    className={`py-1 text-xs font-mono font-bold rounded-lg transition-all cursor-pointer ${
+                    className={`py-0.5 text-xs font-mono font-bold rounded-md transition-all cursor-pointer ${
                       activeFontSize === sz
                         ? 'bg-[#2457D6] text-white shadow-xs'
                         : 'text-stone-400 hover:text-stone-200'
@@ -2083,12 +2083,12 @@ export function EngineeringDraftingDesk({
             </div>
 
             {/* Typography Font Family */}
-            <div className="pb-2">
+            <div>
               <div className="text-[10px] font-mono text-stone-400 uppercase tracking-wider mb-1 flex items-center justify-between">
                 <span>Font Family</span>
                 <span className="text-[9px] text-stone-500 font-normal">{FONT_FAMILIES[activeFontFamily]?.label || 'Mono'}</span>
               </div>
-              <div className="grid grid-cols-2 gap-1.5">
+              <div className="grid grid-cols-4 gap-1 bg-stone-900/80 p-0.5 rounded-lg border border-stone-800">
                 {(Object.keys(FONT_FAMILIES) as FontFamily[]).map((f) => {
                   const meta = FONT_FAMILIES[f];
                   return (
@@ -2098,15 +2098,14 @@ export function EngineeringDraftingDesk({
                       onMouseDown={(e) => e.preventDefault()}
                       onClick={() => handleUpdateFontFamily(f)}
                       style={{ fontFamily: meta.font }}
-                      className={`px-2.5 py-1.5 text-xs rounded-xl border transition-all text-left flex items-center justify-between cursor-pointer ${
+                      className={`py-1 text-[11px] rounded-md font-medium transition-all text-center cursor-pointer ${
                         activeFontFamily === f
-                          ? 'bg-[#2457D6]/20 border-blue-500 text-blue-200 font-bold shadow-xs'
-                          : 'bg-stone-900/60 border-stone-800 text-stone-400 hover:text-stone-200 hover:border-stone-700'
+                          ? 'bg-[#2457D6] text-white font-bold shadow-xs'
+                          : 'text-stone-400 hover:text-stone-200'
                       }`}
                       title={`${meta.name} (${meta.label})`}
                     >
-                      <span className="font-medium">{meta.label}</span>
-                      <span className="text-[13px] opacity-80">{meta.sample}</span>
+                      {meta.label}
                     </button>
                   );
                 })}
