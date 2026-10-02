@@ -1,0 +1,386 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-handwriting: 'Caveat', cursive;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  --font-editorial: 'Newsreader', Georgia, serif;
+
+  --color-paper-bg: #F7F3EA;
+  --color-notebook: #FFFDF7;
+  --color-ink-black: #171717;
+  --color-pen-blue: #2457D6;
+  --color-highlighter: #FFF09A;
+  --color-warning-red: #D94A4A;
+  --color-tip-green: #3D7A57;
+  --color-border-paper: #D9D4C8;
+}
+
+/* Notebook paper ruling pattern */
+.notebook-ruled {
+  background-color: #FFFDF7;
+  background-image: 
+    linear-gradient(to bottom, transparent 31px, rgba(36, 87, 214, 0.08) 32px);
+  background-size: 100% 32px;
+  line-height: 32px;
+}
+
+.notebook-grid {
+  background-color: #FFFDF7;
+  background-image: 
+    linear-gradient(to right, rgba(36, 87, 214, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(36, 87, 214, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.notebook-plain {
+  background-color: #FFFDF7;
+}
+
+/* Red vertical margin line for engineering notebook */
+.notebook-margin-line {
+  position: relative;
+}
+
+.notebook-margin-line::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 3.5rem;
+  width: 1.5px;
+  background-color: rgba(217, 74, 74, 0.28);
+  pointer-events: none;
+  z-index: 5;
+}
+
+@media (max-width: 640px) {
+  .notebook-margin-line::before {
+    left: 1.75rem;
+  }
+}
+
+/* Highlighter effect */
+.ink-highlight {
+  background: linear-gradient(104deg, rgba(255, 240, 154, 0) 0.9%, rgba(255, 240, 154, 0.9) 2.4%, rgba(255, 240, 154, 0.82) 94.6%, rgba(255, 240, 154, 0) 98%);
+  padding: 0.1em 0.35em;
+  border-radius: 2px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.ink-highlight-blue {
+  background: linear-gradient(104deg, rgba(36, 87, 214, 0.02) 0%, rgba(36, 87, 214, 0.12) 4%, rgba(36, 87, 214, 0.09) 95%, rgba(36, 87, 214, 0.01) 100%);
+  padding: 0.1em 0.35em;
+  border-radius: 2px;
+}
+
+/* Handwritten font helper */
+.font-handwritten {
+  font-family: 'Caveat', cursive;
+}
+
+/* Subtle paper texture shadow */
+.shadow-notebook {
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 4px 12px rgba(23, 23, 23, 0.06),
+    0 20px 32px -8px rgba(23, 23, 23, 0.08);
+}
+
+.shadow-notebook-cover {
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.08),
+    0 12px 28px rgba(18, 18, 18, 0.16),
+    0 32px 64px -12px rgba(18, 18, 18, 0.22);
+}
+
+/* Physical Book Spread 3D & Spine Curvature */
+.perspective-book {
+  perspective: 2400px;
+  perspective-origin: 50% 50%;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Center spine gutter gradient shadows for left and right pages */
+.spine-gutter-left {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 80%, rgba(20, 20, 20, 0.04) 93%, rgba(20, 20, 20, 0.15) 100%);
+  pointer-events: none;
+}
+
+.spine-gutter-right {
+  background-image: linear-gradient(to left, rgba(0, 0, 0, 0) 80%, rgba(20, 20, 20, 0.04) 93%, rgba(20, 20, 20, 0.15) 100%);
+  pointer-events: none;
+}
+
+/* Center spine groove line */
+.spine-center-groove {
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.22) 0%,
+    rgba(0, 0, 0, 0.08) 35%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(0, 0, 0, 0.08) 65%,
+    rgba(0, 0, 0, 0.22) 100%
+  );
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.12);
+}
+
+/* Realistic physical page thickness (stacked leaves on outer rims) */
+.book-page-edges-left {
+  box-shadow:
+    -1px 0 0 #ECE6D8,
+    -2px 0 0 #E2DCD0,
+    -3px 0 0 #D8D2C6,
+    -4px 0 0 #CEC8BC,
+    -5px 1px 2px rgba(0, 0, 0, 0.08),
+    0 8px 16px -4px rgba(0, 0, 0, 0.1);
+}
+
+.book-page-edges-right {
+  box-shadow:
+    1px 0 0 #ECE6D8,
+    2px 0 0 #E2DCD0,
+    3px 0 0 #D8D2C6,
+    4px 0 0 #CEC8BC,
+    5px 1px 2px rgba(0, 0, 0, 0.08),
+    0 8px 16px -4px rgba(0, 0, 0, 0.1);
+}
+
+/* Underneath hardcover base peeking past paper pages */
+.book-hardcover-base {
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.15),
+    0 15px 35px -5px rgba(0, 0, 0, 0.25),
+    0 30px 60px -15px rgba(0, 0, 0, 0.2);
+}
+
+/* Realistic Yellow Highlighter Marker Stroke */
+.real-highlighter {
+  position: relative;
+  display: inline;
+  background-image: linear-gradient(
+    104deg,
+    rgba(255, 240, 154, 0.2) 0%,
+    rgba(255, 240, 154, 0.88) 2%,
+    rgba(255, 235, 130, 0.84) 50%,
+    rgba(255, 240, 154, 0.9) 97%,
+    rgba(255, 240, 154, 0.1) 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 86%;
+  background-position: 0 88%;
+  padding: 0.1em 0.35em 0.12em 0.35em;
+  border-radius: 2px 4px 3px 5px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Dynamic Text Drag Selection matching active highlighter pen color */
+.tool-selection-green ::selection,
+.tool-selection-green *::selection {
+  background-color: rgba(76, 175, 80, 0.35) !important;
+  color: #171717 !important;
+}
+
+.tool-selection-blue ::selection,
+.tool-selection-blue *::selection {
+  background-color: rgba(66, 133, 244, 0.30) !important;
+  color: #171717 !important;
+}
+
+.tool-selection-yellow ::selection,
+.tool-selection-yellow *::selection {
+  background-color: rgba(255, 235, 59, 0.45) !important;
+  color: #171717 !important;
+}
+
+.tool-selection-red ::selection,
+.tool-selection-red *::selection {
+  background-color: rgba(244, 67, 54, 0.30) !important;
+  color: #171717 !important;
+}
+
+.tool-selection-eraser ::selection,
+.tool-selection-eraser *::selection {
+  background-color: rgba(203, 213, 225, 0.50) !important;
+  color: #171717 !important;
+}
+
+/* User Annotation Highlighter Strokes (Transparent organic marker strokes) */
+.user-highlight-yellow {
+  background-color: rgba(255, 235, 59, 0.40);
+  background-image: linear-gradient(
+    104deg,
+    rgba(255, 235, 59, 0.20) 0%,
+    rgba(255, 235, 59, 0.45) 3%,
+    rgba(255, 220, 40, 0.40) 50%,
+    rgba(255, 235, 59, 0.45) 96%,
+    rgba(255, 235, 59, 0.18) 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 88%;
+  background-position: 0 82%;
+  padding: 0.1em 0.28em;
+  border-radius: 2px 4px 3px 5px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.user-highlight-green {
+  background-color: rgba(76, 175, 80, 0.30);
+  background-image: linear-gradient(
+    104deg,
+    rgba(76, 175, 80, 0.15) 0%,
+    rgba(76, 175, 80, 0.35) 3%,
+    rgba(67, 160, 71, 0.30) 50%,
+    rgba(76, 175, 80, 0.35) 96%,
+    rgba(76, 175, 80, 0.15) 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 88%;
+  background-position: 0 82%;
+  padding: 0.1em 0.28em;
+  border-radius: 3px 2px 4px 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.user-highlight-blue {
+  background-color: rgba(66, 133, 244, 0.25);
+  background-image: linear-gradient(
+    104deg,
+    rgba(66, 133, 244, 0.12) 0%,
+    rgba(66, 133, 244, 0.30) 3%,
+    rgba(51, 103, 214, 0.25) 50%,
+    rgba(66, 133, 244, 0.30) 96%,
+    rgba(66, 133, 244, 0.12) 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 88%;
+  background-position: 0 82%;
+  padding: 0.1em 0.28em;
+  border-radius: 4px 3px 2px 4px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.user-highlight-red {
+  background-color: rgba(244, 67, 54, 0.25);
+  background-image: linear-gradient(
+    104deg,
+    rgba(244, 67, 54, 0.12) 0%,
+    rgba(244, 67, 54, 0.30) 3%,
+    rgba(229, 57, 53, 0.25) 50%,
+    rgba(244, 67, 54, 0.30) 96%,
+    rgba(244, 67, 54, 0.12) 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 88%;
+  background-position: 0 82%;
+  padding: 0.1em 0.28em;
+  border-radius: 2px 4px 4px 2px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Page curl and turning shadow */
+.page-turn-shadow-overlay {
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.25) 0%,
+    rgba(0, 0, 0, 0.08) 25%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+/* Smooth custom scrollbars for code and notebook */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #D9D4C8;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B8B2A4;
+}
+
+/* Thin minimal index scrollbar */
+.index-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.index-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.index-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(184, 178, 164, 0.5);
+  border-radius: 9999px;
+}
+.index-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(36, 87, 214, 0.6);
+}
+.index-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(184, 178, 164, 0.5) transparent;
+}
+
+/* ==========================================================================
+   OFFICIAL UNIVERSITY QUESTION PAPER PRINT & PDF EXPORT
+   ========================================================================== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 14mm 16mm 14mm 16mm;
+  }
+
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-family: 'Times New Roman', Times, Georgia, serif !important;
+    font-size: 11pt !important;
+    line-height: 1.4 !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* Strict print isolation for question paper */
+  .exam-question-item {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .exam-section-header {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  .exam-code-box {
+    background: #fbfbfb !important;
+    color: #000000 !important;
+    border: 1px solid #666666 !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    font-size: 9.5pt !important;
+    padding: 6pt 8pt !important;
+    white-space: pre-wrap !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+}
+

@@ -1,0 +1,6 @@
+{
+  "name": "CODEINK - Your Programming Notebook",
+  "description": "Digital Computer Science and programming learning platform organized as a premium, interactive engineering notebook.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SECURITY HEADERS (client-side meta equivalents)
+         For production: mirror these as HTTP response headers (Netlify _headers
+         or Vercel vercel.json) for full enforcement — meta tags cover most
+         browsers but HTTP headers are the authoritative source.
+         ═══════════════════════════════════════════════════════════════ -->
+
+    <!-- Content Security Policy
+         • default-src 'self'                 – load only from same origin
+         • script-src 'unsafe-inline/eval'    – required by Vite + React HMR
+         • connect-src                        – whitelist only known API hosts
+         • frame-ancestors 'none'             – blocks clickjacking / iframe embed
+         • object-src 'none'                  – disables Flash & legacy plugins
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self' https://generativelanguage.googleapis.com https://openrouter.ai https://wandbox.org https://fonts.googleapis.com https://fonts.gstatic.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self';"
+    />
+
+    <!-- Prevent Referer header leaking API keys in URL query strings -->
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <link rel="icon" type="image/webp" href="/codeink-logo.webp" />
+    <link rel="apple-touch-icon" href="/codeink-logo.webp" />
+    <link rel="canonical" href="https://code-ink.vercel.app/" />
+
+    <!-- Primary Meta Tags -->
+    <title>CODEINK - Your Programming Notebook | Interactive CS Learning & 100 Free Tools</title>
+    <meta name="title" content="CODEINK - Your Programming Notebook | Interactive CS Learning & 100 Free Tools" />
+    <meta name="description" content="Master Computer Science with CODEINK: A tactile digital engineering notebook covering C, C++, Python, Java, JavaScript, and DSA. Featuring a live zero-config online compiler, hardware call-stack tracer, and 100 verified developer tools." />
+    <meta name="keywords" content="codeink, code ink, programming notebook, computer science notebook, learn c programming, learn cpp, learn python 3, learn java, data structures and algorithms, dsa notebook, online compiler, dry run memory tracer, developer tools vault, free tools for students" />
+    <meta name="author" content="Harsh Lagwal" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#1E232A" />
+
+    <!-- Google Search Console Verification Meta Tag (Paste your token below after deploying) -->
+    <!-- <meta name="google-site-verification" content="YOUR_GOOGLE_VERIFICATION_TOKEN_HERE" /> -->
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://code-ink.vercel.app/" />
+    <meta property="og:site_name" content="CODEINK" />
+    <meta property="og:title" content="CODEINK - Your Programming Notebook" />
+    <meta property="og:description" content="Digital Computer Science learning platform organized as a physical interactive engineering notebook with live GCC/JVM compilers and 100 verified free developer tools." />
+    <meta property="og:image" content="/codeink-logo.webp" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://code-ink.vercel.app/" />
+    <meta name="twitter:title" content="CODEINK - Your Programming Notebook" />
+    <meta name="twitter:description" content="Digital Computer Science learning platform organized as a physical interactive engineering notebook with live GCC/JVM compilers and 100 verified free developer tools." />
+    <meta name="twitter:image" content="/codeink-logo.webp" />
+
+    <!-- Structured Data (JSON-LD) for Search Engine Rich Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "CODEINK",
+      "alternateName": "Code Ink",
+      "url": "https://code-ink.vercel.app/",
+      "logo": "https://code-ink.vercel.app/codeink-logo.webp",
+      "description": "Interactive physical-style digital programming notebook covering C, C++, Python, Java, JavaScript, and DSA with live compilation, memory tracing, and 100 free developer tools.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Harsh Lagwal"
+      }
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Caveat:wght@500;600;700&family=Dancing+Script:wght@600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
+  </head>
+  <body class="bg-[#F7F3EA] text-[#171717] antialiased selection:bg-[#FFF09A] selection:text-[#171717]">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
