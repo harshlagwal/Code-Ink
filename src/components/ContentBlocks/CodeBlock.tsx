@@ -22,7 +22,7 @@ export function CodeBlock({ snippet }: CodeBlockProps) {
   const lines = snippet.code.split('\n');
 
   return (
-    <div className="my-4 rounded-lg border border-[#D9D4C8] bg-[#1A1D21] text-stone-100 shadow-xs overflow-hidden w-full">
+    <div className="my-4 rounded-lg border border-line bg-[#1A1D21] text-stone-100 shadow-xs overflow-hidden w-full">
       {/* Code Header */}
       <div className="flex items-center justify-between px-3.5 py-1.5 bg-[#141619] border-b border-stone-800 text-xs">
         <div className="flex items-center gap-2">

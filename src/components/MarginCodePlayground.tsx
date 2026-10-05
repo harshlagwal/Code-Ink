@@ -492,7 +492,7 @@ export function MarginCodePlayground({
   };
 
   return (
-    <div className="my-6 rounded-lg border border-[#D9D4C8] bg-[#FFFDF7] shadow-xs overflow-hidden select-text">
+    <div className="my-6 rounded-lg border border-line bg-raised shadow-xs overflow-hidden select-text">
       {/* Accordion Header / Tab */}
       <button
         type="button"
@@ -500,18 +500,18 @@ export function MarginCodePlayground({
           notebookAudio.playPencil();
           setIsOpen(!isOpen);
         }}
-        className="w-full px-4 py-2.5 bg-[#FAF7F0] border-b border-[#D9D4C8] flex items-center justify-between hover:bg-[#F3EFE6] transition-colors cursor-pointer text-left"
+        className="w-full px-4 py-2.5 bg-page/80 border-b border-line flex items-center justify-between hover:bg-raised transition-colors cursor-pointer text-left"
       >
         <div className="flex items-center gap-2">
-          <Terminal className="w-4 h-4 text-[#2457D6]" />
-          <span className="font-mono text-xs font-bold text-stone-800 uppercase tracking-wider">
+          <Terminal className="w-4 h-4 text-accent" />
+          <span className="font-mono text-xs font-bold text-ink uppercase tracking-wider">
             Margin REPL & Interactive Scratchpad
           </span>
-          <span className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono rounded bg-blue-100/80 text-[#2457D6] font-semibold">
+          <span className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono rounded bg-accent/15 text-accent font-semibold">
             {language.toUpperCase()}
           </span>
         </div>
-        <div className="flex items-center gap-2 text-xs font-handwritten text-stone-500">
+        <div className="flex items-center gap-2 text-xs font-handwritten text-muted">
           <span>{isOpen ? 'Fold Scratchpad' : 'Run / Edit Live Code'}</span>
           {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
         </div>
@@ -537,9 +537,9 @@ export function MarginCodePlayground({
                 type="button"
                 onClick={handleReset}
                 title="Reset to default topic code"
-                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md border border-stone-300 bg-white text-stone-700 hover:bg-stone-100 font-mono text-xs transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md border border-line bg-page text-ink hover:bg-raised font-mono text-xs transition-colors cursor-pointer"
               >
-                <RotateCcw className="w-3 h-3 text-stone-500" />
+                <RotateCcw className="w-3 h-3 text-muted" />
                 <span className="hidden sm:inline">Reset</span>
               </button>
 
@@ -548,7 +548,7 @@ export function MarginCodePlayground({
                 type="button"
                 onClick={handleFormatCode}
                 title="Auto-format code indentation & structure (VS Code style)"
-                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md border border-stone-300 bg-white text-stone-700 hover:bg-stone-100 font-mono text-xs transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md border border-line bg-page text-ink hover:bg-raised font-mono text-xs transition-colors cursor-pointer"
               >
                 <Sparkles className={`w-3 h-3 text-amber-500 ${isFormatting ? 'animate-spin' : ''}`} />
                 <span className="hidden sm:inline">Format</span>
@@ -562,8 +562,8 @@ export function MarginCodePlayground({
                   title="Provide standard input for scanf, cin, Scanner, or input()"
                   className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md border font-mono text-xs transition-colors cursor-pointer ${
                     showStdin || stdin.trim()
-                      ? 'border-blue-400 bg-blue-50 text-[#2457D6] font-semibold'
-                      : 'border-stone-300 bg-white text-stone-600 hover:bg-stone-100'
+                      ? 'border-accent bg-accent/15 text-accent font-semibold'
+                      : 'border-line bg-page text-muted hover:bg-raised hover:text-ink'
                   }`}
                 >
                   <span>Stdin Input{stdin.trim() ? ' •' : ''}</span>
@@ -576,7 +576,7 @@ export function MarginCodePlayground({
                 type="button"
                 onClick={handleDownloadCode}
                 title="Download source code file for lab / assignments"
-                className="inline-flex items-center gap-1 px-2 py-1 text-stone-500 hover:text-stone-800 text-xs font-mono cursor-pointer"
+                className="inline-flex items-center gap-1 px-2 py-1 text-muted hover:text-ink text-xs font-mono cursor-pointer"
               >
                 {isDownloaded ? <Check className="w-3 h-3 text-emerald-600" /> : <Download className="w-3 h-3" />}
                 <span>{isDownloaded ? 'Saved' : 'Download'}</span>
@@ -585,7 +585,7 @@ export function MarginCodePlayground({
               <button
                 type="button"
                 onClick={handleCopyCode}
-                className="inline-flex items-center gap-1 px-2 py-1 text-stone-500 hover:text-stone-800 text-xs font-mono cursor-pointer"
+                className="inline-flex items-center gap-1 px-2 py-1 text-muted hover:text-ink text-xs font-mono cursor-pointer"
               >
                 {copied ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
                 <span>{copied ? 'Copied' : 'Copy'}</span>
@@ -593,7 +593,7 @@ export function MarginCodePlayground({
               {executionStats && (
                 <span
                   className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono ${
-                    hasError ? 'bg-red-100 text-red-700 font-bold' : 'bg-emerald-100 text-emerald-800 font-medium'
+                    hasError ? 'bg-red-500/15 text-red-700 dark:text-red-300 font-bold' : 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 font-medium'
                   }`}
                 >
                   {hasError ? <AlertTriangle className="w-3 h-3" /> : <CheckCircle className="w-3 h-3" />}
@@ -605,17 +605,17 @@ export function MarginCodePlayground({
 
           {/* Optional Stdin Input Drawer */}
           {showStdin && (
-            <div className="rounded border border-[#D9D4C8] bg-[#FAF7F0] p-2.5">
-              <div className="flex items-center justify-between text-[11px] font-mono text-stone-600 mb-1">
-                <span className="font-semibold text-stone-700">Standard Input (stdin)</span>
-                <span className="text-[10px] text-stone-400">Values for scanf, cin, Scanner, input()</span>
+            <div className="rounded border border-line bg-code p-2.5">
+              <div className="flex items-center justify-between text-[11px] font-mono text-muted mb-1">
+                <span className="font-semibold text-ink">Standard Input (stdin)</span>
+                <span className="text-[10px] text-muted">Values for scanf, cin, Scanner, input()</span>
               </div>
               <textarea
                 value={stdin}
                 onChange={(e) => setStdin(e.target.value)}
                 rows={2}
                 placeholder="Enter input values separated by spaces or new lines (e.g. 10 20)..."
-                className="w-full p-2 font-mono text-xs text-stone-800 bg-white rounded border border-stone-300 focus:outline-blue-500 resize-y"
+                className="w-full p-2 font-mono text-xs text-ink bg-page rounded border border-line focus:outline-accent resize-y"
               />
             </div>
           )}
@@ -672,20 +672,20 @@ export function MarginCodePlayground({
           </div>
 
           {/* Dual-Tab Output Area: Console stdout & Dry-Run Memory Table */}
-          <div className="rounded border border-stone-300 bg-[#F4F1EA] overflow-hidden">
+          <div className="rounded border border-line bg-code overflow-hidden">
             {/* Tray Header Tabs */}
-            <div className="px-3 py-1 bg-[#EAE5D9] border-b border-[#D9D4C8] flex items-center justify-between text-[11px] font-mono text-stone-600 select-none">
+            <div className="px-3 py-1 bg-page border-b border-line flex items-center justify-between text-[11px] font-mono text-muted select-none">
               <div className="flex items-center gap-1">
                 <button
                   type="button"
                   onClick={() => setOutputTab('console')}
                   className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded cursor-pointer transition-colors ${
                     outputTab === 'console'
-                      ? 'bg-white text-stone-900 font-semibold shadow-xs'
-                      : 'text-stone-600 hover:text-stone-900'
+                      ? 'bg-raised text-ink font-semibold shadow-xs'
+                      : 'text-muted hover:text-ink'
                   }`}
                 >
-                  <Terminal className="w-3 h-3 text-stone-500" />
+                  <Terminal className="w-3 h-3 text-muted" />
                   <span className="uppercase tracking-wider text-[10px]">Console Output</span>
                 </button>
 
@@ -694,13 +694,13 @@ export function MarginCodePlayground({
                   onClick={() => setOutputTab('dryrun')}
                   className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded cursor-pointer transition-colors ${
                     outputTab === 'dryrun'
-                      ? 'bg-white text-stone-900 font-semibold shadow-xs'
-                      : 'text-stone-600 hover:text-stone-900'
+                      ? 'bg-raised text-ink font-semibold shadow-xs'
+                      : 'text-muted hover:text-ink'
                   }`}
                 >
-                  <Cpu className="w-3 h-3 text-[#2457D6]" />
+                  <Cpu className="w-3 h-3 text-accent" />
                   <span className="uppercase tracking-wider text-[10px]">Dry-Run Memory</span>
-                  <span className="inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] leading-none bg-blue-100 text-[#2457D6] font-bold">
+                  <span className="inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] leading-none bg-accent/20 text-accent font-bold">
                     {dryRunVariables.length}
                   </span>
                 </button>
@@ -710,7 +710,7 @@ export function MarginCodePlayground({
                 <button
                   type="button"
                   onClick={() => setOutput('')}
-                  className="hover:text-stone-950 cursor-pointer text-[10px]"
+                  className="hover:text-ink cursor-pointer text-[10px] text-muted"
                 >
                   Clear
                 </button>
@@ -719,11 +719,11 @@ export function MarginCodePlayground({
 
             {/* Tab 1: Terminal Console Output */}
             {outputTab === 'console' ? (
-              <pre className="p-3 text-xs font-mono overflow-x-auto min-h-[50px] max-h-[160px] text-stone-800 leading-relaxed whitespace-pre-wrap">
+              <pre className="p-3 text-xs font-mono overflow-x-auto min-h-[50px] max-h-[160px] text-ink leading-relaxed whitespace-pre-wrap">
                 {output ? (
                   output
                 ) : (
-                  <span className="text-stone-400 italic">Click [Run Code] or press [Ctrl + Enter] to compile and execute output...</span>
+                  <span className="text-muted italic">Click [Run Code] or press [Ctrl + Enter] to compile and execute output...</span>
                 )}
               </pre>
             ) : (
@@ -732,7 +732,7 @@ export function MarginCodePlayground({
                 {dryRunVariables.length > 0 ? (
                   <table className="w-full text-left text-xs font-mono border-collapse">
                     <thead>
-                      <tr className="border-b border-stone-300 text-stone-600 bg-stone-200/50">
+                      <tr className="border-b border-line text-muted bg-raised">
                         <th className="py-1 px-2 font-semibold">Line</th>
                         <th className="py-1 px-2 font-semibold">Variable</th>
                         <th className="py-1 px-2 font-semibold">Data Type</th>
@@ -741,26 +741,26 @@ export function MarginCodePlayground({
                         <th className="py-1 px-2 font-semibold">Size</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-stone-200">
+                    <tbody className="divide-y divide-line">
                       {dryRunVariables.map((v, idx) => (
-                        <tr key={idx} className="hover:bg-amber-50/60 transition-colors">
-                          <td className="py-1.5 px-2 text-stone-400">L{v.line}</td>
-                          <td className="py-1.5 px-2 font-bold text-[#2457D6]">{v.name}</td>
-                          <td className="py-1.5 px-2 text-stone-600">
-                            <span className="px-1.5 py-0.5 rounded bg-stone-100 text-stone-700 text-[10px]">
+                        <tr key={idx} className="hover:bg-raised transition-colors">
+                          <td className="py-1.5 px-2 text-muted">L{v.line}</td>
+                          <td className="py-1.5 px-2 font-bold text-accent">{v.name}</td>
+                          <td className="py-1.5 px-2 text-muted">
+                            <span className="px-1.5 py-0.5 rounded bg-page border border-line text-ink text-[10px]">
                               {v.type}
                             </span>
                           </td>
-                          <td className="py-1.5 px-2 text-emerald-800 font-semibold">{v.value}</td>
-                          <td className="py-1.5 px-2 text-purple-700 font-semibold">{v.address}</td>
-                          <td className="py-1.5 px-2 text-stone-500">{v.bytes} {v.bytes === 1 ? 'byte' : 'bytes'}</td>
+                          <td className="py-1.5 px-2 text-emerald-600 dark:text-emerald-400 font-semibold">{v.value}</td>
+                          <td className="py-1.5 px-2 text-purple-600 dark:text-purple-400 font-semibold">{v.address}</td>
+                          <td className="py-1.5 px-2 text-muted">{v.bytes} {v.bytes === 1 ? 'byte' : 'bytes'}</td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 ) : (
-                  <p className="text-xs text-stone-500 italic py-2">
-                    No variables declared yet in this snippet. Define variables like <code className="text-stone-700 font-semibold">int a = 10;</code> or <code className="text-stone-700 font-semibold">x = 5</code> to see the dry-run stack memory layout.
+                  <p className="text-xs text-muted italic py-2">
+                    No variables declared yet in this snippet. Define variables like <code className="text-ink font-semibold">int a = 10;</code> or <code className="text-ink font-semibold">x = 5</code> to see the dry-run stack memory layout.
                   </p>
                 )}
               </div>

@@ -18,18 +18,24 @@ import { EngineeringDraftingDesk } from './components/EngineeringDraftingDesk';
 import { RevisionSessionModal } from './components/RevisionSessionModal';
 import { ToolsVaultView } from './components/tools/ToolsVaultView';
 import { MobileDeviceNoticeModal } from './components/MobileDeviceNoticeModal';
+import { MobileDiaryReader } from './components/mobile/MobileDiaryReader';
+import { LandingPage } from './components/landing/LandingPage';
+import { useViewportMode } from './hooks/useViewportMode';
 import { C_FINAL_ASSESSMENT } from './data/cAssessment';
 import { notebookAudio } from './utils/audioEffects';
 import { PanelLeftClose, PanelLeftOpen, Award, Brain, Bot, AlertCircle, PenTool, Compass } from 'lucide-react';
 
-type ViewMode = 'home' | 'notebook' | 'library' | 'bookmarks' | 'progress' | 'ai-desk' | 'whiteboard' | 'tools';
+type ViewMode = 'landing' | 'home' | 'notebook' | 'library' | 'bookmarks' | 'progress' | 'ai-desk' | 'whiteboard' | 'tools';
 
 export default function App() {
+  const { mode: viewportMode } = useViewportMode();
 
   // Selected State
-  const [currentView, setCurrentView] = useState<ViewMode>('home');
+  const [currentView, setCurrentView] = useState<ViewMode>('landing');
   const [isOpeningAnimation, setIsOpeningAnimation] = useState(false);
   const [isBookClosed, setIsBookClosed] = useState(false);
+  // Incremented each time the user enters the notebook — forces the cover animation to replay
+  const [animationKey, setAnimationKey] = useState(0);
   const [isIndexOpen, setIsIndexOpen] = useState<boolean>(() => {
     try {
       const saved = localStorage.getItem('codeink_index_open');
@@ -369,38 +375,67 @@ export default function App() {
 
   return (
     <>
-      <div className={`min-h-screen bg-[#F7F3EA] text-[#171717] flex flex-col font-sans tool-selection-${selectedTool} ${(currentView === 'ai-desk' || currentView === 'whiteboard') ? 'pb-0 overflow-hidden h-screen bg-[#1A1918]' : 'pb-16'} ${isFinalPaperOpen ? 'print:hidden' : ''}`}>
-      {/* Top Navbar */}
-      <Navbar
-        currentView={currentView}
-        onNavigate={(view) => {
-          setCurrentView(view);
-          setMobileMenuOpen(false);
-        }}
-        onOpenSearch={() => setIsSearchOpen(true)}
-        paperStyle={paperStyle}
-        onChangePaperStyle={setPaperStyle}
-        mobileMenuOpen={mobileMenuOpen}
-        onToggleMobileMenu={() => setMobileMenuOpen(!mobileMenuOpen)}
-        bookmarksCount={bookmarkedTopicIds.length}
-        onOpenFinalPaper={() => setIsFinalPaperOpen(true)}
-        isMuted={isMuted}
-        onToggleMute={handleToggleMute}
-        onOpenAIStudyDesk={() => {
-          setAiStudyDeskSnippet(undefined);
-          setCurrentView('ai-desk');
-        }}
-        onOpenRevisionMode={() => setIsRevisionSessionOpen(true)}
-      />
+      <div className={`min-h-screen bg-app text-ink flex flex-col font-sans tool-selection-${selectedTool} overflow-x-hidden ${currentView === 'landing' ? 'pb-0' : currentView === 'whiteboard' ? 'pb-0 overflow-hidden h-screen bg-[#1A1918]' : currentView === 'ai-desk' ? 'pb-0 overflow-hidden h-screen bg-app' : (currentView === 'notebook' && viewportMode === 'diary') ? 'pb-0 h-[100dvh] overflow-hidden' : 'pb-16'} ${isFinalPaperOpen ? 'print:hidden' : ''}`}>
+      {/* Top Navbar (Hidden on Landing Page & during Mobile Diary View) */}
+      {!(currentView === 'landing' || (currentView === 'notebook' && viewportMode === 'diary')) && (
+        <Navbar
+          currentView={currentView}
+          onNavigate={(view) => {
+            setCurrentView(view);
+            setMobileMenuOpen(false);
+          }}
+          onOpenSearch={() => setIsSearchOpen(true)}
+          paperStyle={paperStyle}
+          onChangePaperStyle={setPaperStyle}
+          mobileMenuOpen={mobileMenuOpen}
+          onToggleMobileMenu={() => setMobileMenuOpen(!mobileMenuOpen)}
+          bookmarksCount={bookmarkedTopicIds.length}
+          onOpenFinalPaper={() => setIsFinalPaperOpen(true)}
+          isMuted={isMuted}
+          onToggleMute={handleToggleMute}
+          onOpenAIStudyDesk={() => {
+            setAiStudyDeskSnippet(undefined);
+            setCurrentView('ai-desk');
+          }}
+          onOpenRevisionMode={() => setIsRevisionSessionOpen(true)}
+        />
+      )}
 
       {/* Main View Router */}
       <div className={`flex-1 w-full flex flex-col transition-all duration-300 ${
-        currentView === 'ai-desk'
+        currentView === 'landing'
+          ? 'p-0 max-w-full'
+          : currentView === 'ai-desk'
           ? 'p-0 max-w-full overflow-hidden'
-          : `mx-auto p-3 sm:p-5 md:p-6 lg:p-8 ${isIndexOpen ? 'max-w-7xl' : 'max-w-[1520px]'}`
+          : (currentView === 'notebook' && viewportMode === 'diary')
+          ? 'p-0 max-w-full h-full min-h-0 overflow-hidden'
+          : `mx-auto p-2.5 sm:p-4 md:p-5 lg:p-6 ${isIndexOpen ? 'max-w-7xl' : 'max-w-[1520px]'}`
       }`}>
+        {currentView === 'landing' && (
+          <LandingPage
+            onEnter={() => {
+              setIsBookClosed(false);
+              setAnimationKey(k => k + 1);  // new key → NotebookCover remounts fresh
+              setIsOpeningAnimation(false);  // mount in CLOSED state first
+              setCurrentView('home');
+              recordRecentTopic(activeTopic.id);
+              // Step 1: let the closed cover render for one frame (~60ms)
+              // Step 2: trigger the cover flip
+              // Step 3: after flip completes (950ms), advance to notebook
+              setTimeout(() => {
+                setIsOpeningAnimation(true);
+                setTimeout(() => {
+                  setIsOpeningAnimation(false);
+                  setCurrentView('notebook');
+                }, 950);
+              }, 60);
+            }}
+          />
+        )}
+
         {currentView === 'home' && (
           <NotebookCover
+            key={animationKey}
             onOpen={handleOpenNotebook}
             isOpening={isOpeningAnimation}
           />
@@ -439,6 +474,42 @@ export default function App() {
                 setCurrentView('library');
               }}
             />
+          ) : viewportMode === 'diary' ? (
+            <MobileDiaryReader
+              currentTopic={activeTopic}
+              nextTopic={nextTopic || undefined}
+              prevTopic={prevTopic || undefined}
+              subject={activeSubject}
+              chapterTitle={activeChapterTitle}
+              isBookmarked={bookmarkedTopicIds.includes(activeTopic.id)}
+              isCompleted={completedTopicIds.includes(activeTopic.id)}
+              paperStyle={paperStyle}
+              savedNote={userNotes[activeTopic.id] || ''}
+              selectedTool={selectedTool}
+              userHighlights={userHighlights}
+              stickyNotes={stickyNotes}
+              onAddSticky={handleAddSticky}
+              onUpdateSticky={handleUpdateSticky}
+              onDeleteSticky={handleDeleteSticky}
+              onAddHighlight={handleAddHighlight}
+              onRemoveHighlight={handleRemoveHighlight}
+              onToggleBookmark={handleToggleBookmark}
+              onToggleCompleted={handleToggleCompleted}
+              onSaveNote={handleSaveNote}
+              onPrev={handlePrev}
+              onNext={handleNext}
+              hasPrev={hasPrev}
+              hasNext={hasNext}
+              onCloseBook={() => setCurrentView('library')}
+              onSelectTopicById={handleSelectTopicById}
+              onSelectTopic={(t) => handleSelectTopic(t, activeSubject)}
+              onOpenFinalPaper={() => setIsFinalPaperOpen(true)}
+              onOpenFlashcards={() => setIsFlashcardsOpen(true)}
+              onOpenAIStudyDesk={(snippet) => {
+                setAiStudyDeskSnippet(snippet);
+                setCurrentView('ai-desk');
+              }}
+            />
           ) : (
             <div className="flex-1 flex flex-col">
               {/* Top Workspace Sub-Toolbar: Index Toggle & Chapter Breadcrumb */}
@@ -447,23 +518,23 @@ export default function App() {
                   <button
                     type="button"
                     onClick={() => setIsIndexOpen(!isIndexOpen)}
-                    className="inline-flex items-center gap-2 px-2.5 py-1.5 rounded-lg border border-[#D9D4C8] bg-white text-stone-700 hover:text-[#2457D6] hover:border-stone-400 hover:bg-stone-50 transition-all text-xs font-medium shadow-2xs group cursor-pointer"
+                    className="inline-flex items-center gap-2 px-2.5 py-1.5 rounded-lg border border-line bg-raised text-ink hover:text-accent hover:border-stone-400 hover:bg-page transition-all text-xs font-medium shadow-2xs group cursor-pointer"
                     title={isIndexOpen ? "Collapse Left Index" : "Expand Notebook & Show Left Index"}
                     aria-expanded={isIndexOpen}
                   >
                     {isIndexOpen ? (
-                      <PanelLeftClose className="w-4 h-4 text-stone-500 group-hover:text-[#2457D6] transition-colors" />
+                      <PanelLeftClose className="w-4 h-4 text-muted group-hover:text-accent transition-colors" />
                     ) : (
-                      <PanelLeftOpen className="w-4 h-4 text-stone-500 group-hover:text-[#2457D6] transition-colors" />
+                      <PanelLeftOpen className="w-4 h-4 text-muted group-hover:text-accent transition-colors" />
                     )}
-                    <span className="hidden sm:inline font-mono text-[11px] text-stone-600">
+                    <span className="hidden sm:inline font-mono text-[11px] text-muted">
                       {isIndexOpen ? 'Collapse Index' : 'Show Index'}
                     </span>
                   </button>
 
                   {/* Subject & Chapter Breadcrumb */}
-                  <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-stone-500">
-                    <span className="text-[#2457D6] font-semibold">{activeSubject.name}</span>
+                  <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-muted">
+                    <span className="text-accent font-semibold">{activeSubject.name}</span>
                     <span>/</span>
                     <span>Ch {String(activeTopic.chapterNumber).padStart(2, '0')}: {activeChapterTitle}</span>
                   </div>
@@ -643,8 +714,8 @@ export default function App() {
         )}
       </div>
 
-      {/* Floating Four-Marker Pen & Eraser Toolbar (Visible in Notebook Reading Workspace) */}
-      {currentView === 'notebook' && !isBookClosed && (
+      {/* Floating Four-Marker Pen & Eraser Toolbar (Visible in Notebook Reading Workspace on Desktop) */}
+      {currentView === 'notebook' && !isBookClosed && viewportMode === 'spread' && (
         <HighlighterToolbar
           selectedTool={selectedTool}
           onSelectTool={handleSelectTool}

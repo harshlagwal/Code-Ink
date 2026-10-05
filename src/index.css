@@ -1,40 +1,184 @@
 @import "tailwindcss";
 
+/* Tie Tailwind's dark: variant to [data-theme="dark"] attribute instead of OS media query.
+   Inside .paper-mode, cancel the dark: variant so Tailwind dark: utilities don't fire.
+   This makes the notebook spread always render with light-mode Tailwind utilities.        */
+@variant dark (&:where([data-theme="dark"]:not(.paper-mode):not(.paper-mode *), [data-theme="dark"] *:not(.paper-mode *)));
+
 @theme {
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-handwriting: 'Caveat', cursive;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
   --font-editorial: 'Newsreader', Georgia, serif;
 
-  --color-paper-bg: #F7F3EA;
-  --color-notebook: #FFFDF7;
-  --color-ink-black: #171717;
-  --color-pen-blue: #2457D6;
-  --color-highlighter: #FFF09A;
-  --color-warning-red: #D94A4A;
-  --color-tip-green: #3D7A57;
-  --color-border-paper: #D9D4C8;
+  --color-paper-bg: var(--surface-app);
+  --color-notebook: var(--surface-page);
+  --color-ink-black: var(--text-primary);
+  --color-pen-blue: var(--accent);
+  --color-highlighter: var(--highlight);
+  --color-warning-red: var(--danger);
+  --color-tip-green: var(--success);
+  --color-border-paper: var(--border-hairline);
+
+  --color-app: var(--surface-app);
+  --color-page: var(--surface-page);
+  --color-raised: var(--surface-raised);
+  --color-ink: var(--text-primary);
+  --color-muted: var(--text-secondary);
+  --color-line: var(--border-hairline);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-danger: var(--danger);
+  --color-success: var(--success);
+  --color-code: var(--code-bg);
+  --color-chrome: var(--chrome);
+}
+
+/* ---- Light Theme (default) ---- */
+:root {
+  --surface-app: #F7F3EA;
+  --surface-page: #FFFDF7;
+  --surface-raised: #FFFFFF;
+  --text-primary: #171717;
+  --text-secondary: #4A4A4A;
+  --border-hairline: #D9D4C8;
+  --accent: #2457D6;
+  --accent-soft: #EEF3FD;
+  --danger: #C23B3B;
+  --success: #3D7A57;
+  --highlight: #FFF09A;
+  --code-bg: #F4F2EC;
+  --chrome: #1E232A;
+
+  /* paper ruling (light) */
+  --rule-line: rgba(36, 87, 214, 0.08);
+  --grid-line: rgba(36, 87, 214, 0.05);
+  --margin-line: rgba(217, 74, 74, 0.28);
+}
+
+/* ---- Dark Theme ("Warm Night") ---- */
+[data-theme="dark"] {
+  --surface-app: #1B1813;
+  --surface-page: #26221C;
+  --surface-raised: #2E2921;
+  --text-primary: #EDE6D8;
+  --text-secondary: #B8AE9C;
+  --border-hairline: #3B352B;
+  --accent: #9DB8FF;
+  --accent-soft: #262B3A;
+  --danger: #F0A0A0;
+  --success: #9FD3B4;
+  --highlight: #5C4F22;
+  --code-bg: #211D17;
+  --chrome: #15131A;
+
+  /* paper ruling (dark) */
+  --rule-line: rgba(157, 184, 255, 0.10);
+  --grid-line: rgba(157, 184, 255, 0.07);
+  --margin-line: rgba(240, 160, 160, 0.30);
+}
+
+/* ---- Paper Mode — always light paper regardless of UI theme ---- */
+/* Applied to the physical notebook spread so book pages always look    */
+/* like real cream paper even when the navbar/chrome is in dark mode.   */
+.paper-mode,
+[data-theme="dark"] .paper-mode {
+  --surface-app: #F7F3EA;
+  --surface-page: #FFFDF7;
+  --surface-raised: #FFFFFF;
+  --text-primary: #171717;
+  --text-secondary: #4A4A4A;
+  --border-hairline: #D9D4C8;
+  --accent: #2457D6;
+  --accent-soft: #EEF3FD;
+  --danger: #C23B3B;
+  --success: #3D7A57;
+  --highlight: #FFF09A;
+  --code-bg: #F4F2EC;
+  --chrome: #1E232A;
+  --rule-line: rgba(36, 87, 214, 0.08);
+  --grid-line: rgba(36, 87, 214, 0.05);
+  --margin-line: rgba(217, 74, 74, 0.28);
+  color-scheme: light;
+  color: #171717;
+  --color-raised: #FFFFFF;
+  --color-accent: #2457D6;
+  --color-ink: #171717;
+  --color-muted: #4A4A4A;
+  --color-line: #D9D4C8;
+  --color-page: #FFFDF7;
+}
+
+/* Explicit high-contrast text and background enforcement inside paper-mode */
+.paper-mode .text-ink,
+[data-theme="dark"] .paper-mode .text-ink {
+  color: #171717 !important;
+}
+
+.paper-mode .text-muted,
+[data-theme="dark"] .paper-mode .text-muted {
+  color: #4A4A4A !important;
+}
+
+.paper-mode .text-accent,
+[data-theme="dark"] .paper-mode .text-accent {
+  color: #2457D6 !important;
+}
+
+.paper-mode .bg-accent,
+[data-theme="dark"] .paper-mode .bg-accent {
+  background-color: #2457D6 !important;
+}
+
+.paper-mode .border-accent,
+[data-theme="dark"] .paper-mode .border-accent {
+  border-color: #2457D6 !important;
+}
+
+.paper-mode .bg-page,
+[data-theme="dark"] .paper-mode .bg-page {
+  background-color: #FFFDF7 !important;
+}
+
+.paper-mode .bg-raised,
+[data-theme="dark"] .paper-mode .bg-raised {
+  background-color: #FFFFFF !important;
+}
+
+.paper-mode .bg-accent-soft,
+[data-theme="dark"] .paper-mode .bg-accent-soft {
+  background-color: #EEF3FD !important;
+}
+
+.paper-mode .bg-code,
+[data-theme="dark"] .paper-mode .bg-code {
+  background-color: #F4F2EC !important;
+}
+
+.paper-mode .border-line,
+[data-theme="dark"] .paper-mode .border-line {
+  border-color: #D9D4C8 !important;
 }
 
 /* Notebook paper ruling pattern */
 .notebook-ruled {
-  background-color: #FFFDF7;
+  background-color: var(--surface-page);
   background-image: 
-    linear-gradient(to bottom, transparent 31px, rgba(36, 87, 214, 0.08) 32px);
+    linear-gradient(to bottom, transparent 31px, var(--rule-line) 32px);
   background-size: 100% 32px;
   line-height: 32px;
 }
 
 .notebook-grid {
-  background-color: #FFFDF7;
+  background-color: var(--surface-page);
   background-image: 
-    linear-gradient(to right, rgba(36, 87, 214, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(36, 87, 214, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
 .notebook-plain {
-  background-color: #FFFDF7;
+  background-color: var(--surface-page);
 }
 
 /* Red vertical margin line for engineering notebook */
@@ -49,14 +193,14 @@
   bottom: 0;
   left: 3.5rem;
   width: 1.5px;
-  background-color: rgba(217, 74, 74, 0.28);
+  background-color: var(--margin-line);
   pointer-events: none;
   z-index: 5;
 }
 
 @media (max-width: 640px) {
   .notebook-margin-line::before {
-    left: 1.75rem;
+    left: 1rem;
   }
 }
 
@@ -101,6 +245,11 @@
   perspective-origin: 50% 50%;
 }
 
+.perspective-diary {
+  perspective: 1200px;
+  perspective-origin: 50% 0%;
+}
+
 .transform-style-3d {
   transform-style: preserve-3d;
 }
@@ -132,6 +281,73 @@
     rgba(0, 0, 0, 0.22) 100%
   );
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.12);
+}
+
+/* Authentic Desktop Green Satin Bookmark Ribbon Animations & Fabric Weave */
+@keyframes bookmarkRibbonSway {
+  0%, 100% {
+    transform: translateX(-50%) rotate(0deg) skewX(0deg);
+  }
+  25% {
+    transform: translateX(-50%) rotate(0.85deg) skewX(0.35deg);
+  }
+  50% {
+    transform: translateX(-50%) rotate(-0.55deg) skewX(-0.25deg);
+  }
+  75% {
+    transform: translateX(-50%) rotate(1.05deg) skewX(0.45deg);
+  }
+}
+
+@keyframes bookmarkTailLag {
+  0%, 100% {
+    transform: rotate(0deg) translateX(0px);
+  }
+  28% {
+    transform: rotate(1.6deg) translateX(1px);
+  }
+  53% {
+    transform: rotate(-1.1deg) translateX(-0.8px);
+  }
+  78% {
+    transform: rotate(1.8deg) translateX(1.2px);
+  }
+}
+
+.animate-ribbon-sway {
+  transform-origin: top center;
+  animation: bookmarkRibbonSway 7.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform;
+}
+
+.animate-ribbon-tail {
+  transform-origin: top center;
+  animation: bookmarkTailLag 7.5s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+  will-change: transform;
+}
+
+/* Microscopic woven textile thread grain */
+.ribbon-thread-weave {
+  background-image:
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0px, rgba(255, 255, 255, 0.1) 0.75px, transparent 0.75px, transparent 2.5px),
+    repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.14) 0px, rgba(0, 0, 0, 0.14) 0.75px, transparent 0.75px, transparent 2.5px);
+  background-size: 3.5px 3.5px;
+}
+
+/* Text-to-Speech Real-time Follow-Along Highlight */
+.speech-highlight {
+  background: linear-gradient(
+    104deg,
+    rgba(255, 240, 154, 0) 0.9%,
+    rgba(255, 240, 154, 0.95) 2.4%,
+    rgba(255, 240, 154, 0.88) 94.6%,
+    rgba(255, 240, 154, 0) 98%
+  );
+  border-radius: 3px;
+  padding: 0.1em 0.25em;
+  color: #171717;
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(245, 158, 11, 0.2);
 }
 
 /* Realistic physical page thickness (stacked leaves on outer rims) */
@@ -338,10 +554,75 @@
   scrollbar-color: rgba(184, 178, 164, 0.5) transparent;
 }
 
+/* Dark theme overrides for ink highlights & spine gutters (outside paper mode) */
+[data-theme="dark"] .ink-highlight {
+  background: linear-gradient(104deg, rgba(92, 79, 34, 0) 0.9%, rgba(138, 115, 38, 0.75) 2.4%, rgba(138, 115, 38, 0.65) 94.6%, rgba(92, 79, 34, 0) 98%);
+  color: #EDE6D8;
+}
+
+[data-theme="dark"] .ink-highlight-blue {
+  background: linear-gradient(104deg, rgba(38, 43, 58, 0.1) 0%, rgba(56, 85, 160, 0.45) 4%, rgba(56, 85, 160, 0.4) 95%, rgba(38, 43, 58, 0.05) 100%);
+  color: #9DB8FF;
+}
+
+[data-theme="dark"] .spine-gutter-left {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 0.25) 93%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+[data-theme="dark"] .spine-gutter-right {
+  background-image: linear-gradient(to left, rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 0.25) 93%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+/* Explicit paper-mode overrides — always crisp dark ink and natural cream shadow */
+.paper-mode .ink-highlight,
+[data-theme="dark"] .paper-mode .ink-highlight {
+  background: linear-gradient(104deg, rgba(255, 240, 154, 0) 0.9%, rgba(255, 240, 154, 0.9) 2.4%, rgba(255, 240, 154, 0.8) 94.6%, rgba(255, 240, 154, 0) 98%) !important;
+  color: #171717 !important;
+}
+
+.paper-mode .ink-highlight-blue,
+[data-theme="dark"] .paper-mode .ink-highlight-blue {
+  background: linear-gradient(104deg, rgba(36, 87, 214, 0.05) 0%, rgba(36, 87, 214, 0.18) 4%, rgba(36, 87, 214, 0.15) 95%, rgba(36, 87, 214, 0.02) 100%) !important;
+  color: #171717 !important;
+}
+
+.paper-mode .speech-highlight,
+[data-theme="dark"] .paper-mode .speech-highlight {
+  color: #171717 !important;
+}
+
+.paper-mode .spine-gutter-left,
+[data-theme="dark"] .paper-mode .spine-gutter-left {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 0.06) 93%, rgba(0, 0, 0, 0.14) 100%) !important;
+}
+
+.paper-mode .spine-gutter-right,
+[data-theme="dark"] .paper-mode .spine-gutter-right {
+  background-image: linear-gradient(to left, rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 0.06) 93%, rgba(0, 0, 0, 0.14) 100%) !important;
+}
+
+[data-theme="dark"] .index-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(184, 174, 156, 0.25);
+}
+
+[data-theme="dark"] .index-scrollbar {
+  scrollbar-color: rgba(184, 174, 156, 0.25) transparent;
+}
+
 /* ==========================================================================
    OFFICIAL UNIVERSITY QUESTION PAPER PRINT & PDF EXPORT
    ========================================================================== */
 @media print {
+  :root, [data-theme="dark"] {
+    --surface-app: #ffffff !important;
+    --surface-page: #ffffff !important;
+    --surface-raised: #ffffff !important;
+    --text-primary: #000000 !important;
+    --text-secondary: #333333 !important;
+    --border-hairline: #cccccc !important;
+    --code-bg: #fbfbfb !important;
+  }
+
   @page {
     size: A4 portrait;
     margin: 14mm 16mm 14mm 16mm;

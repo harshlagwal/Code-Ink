@@ -14,7 +14,7 @@ export function NotebookCover({ onOpen, isOpening = false }: NotebookCoverProps)
     <div className="relative min-h-[calc(100vh-5rem)] flex flex-col items-center justify-center px-4 py-8 select-none">
       {/* Editorial Minimal Hero Header */}
       <div className="text-center max-w-xl mx-auto mb-8">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#2457D6]/10 text-[#2457D6] text-xs font-mono mb-3 tracking-wider uppercase">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-mono mb-3 tracking-wider uppercase">
           <span>Digital Engineering Edition</span>
         </div>
 
@@ -22,17 +22,17 @@ export function NotebookCover({ onOpen, isOpening = false }: NotebookCoverProps)
           <img
             src="/codeink-logo.webp"
             alt="Code Ink"
-            className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl object-contain shadow-xs border border-[#D9D4C8] bg-white p-1"
+            className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl object-contain shadow-xs border border-line bg-white/20 p-1"
           />
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#171717] font-sans">
-            CODE<span className="text-[#2457D6]">INK</span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-ink font-sans">
+            CODE<span className="text-accent">INK</span>
           </h1>
         </div>
-        <p className="mt-2 text-xl sm:text-2xl font-serif italic text-stone-700">
+        <p className="mt-2 text-xl sm:text-2xl font-serif italic text-muted">
           Your Programming Notebook
         </p>
 
-        <p className="mt-3 text-stone-600 text-sm sm:text-base max-w-md mx-auto leading-relaxed">
+        <p className="mt-3 text-muted text-sm sm:text-base max-w-md mx-auto leading-relaxed">
           Learn Computer Science one page at a time. Crafted like a physical engineering notebook with digital superpowers.
         </p>
 
@@ -41,11 +41,11 @@ export function NotebookCover({ onOpen, isOpening = false }: NotebookCoverProps)
             type="button"
             onClick={onOpen}
             disabled={isOpening}
-            className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-lg bg-[#171717] text-[#FFFDF7] font-medium text-sm sm:text-base shadow-sm hover:bg-stone-800 transition-all hover:shadow-md active:scale-98"
+            className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-lg bg-raised text-ink border border-line font-medium text-sm sm:text-base shadow-sm hover:bg-page transition-all hover:shadow-md active:scale-98 cursor-pointer"
           >
-            <BookOpen className="w-4 h-4 text-[#FFF09A] transition-transform group-hover:rotate-6" />
+            <BookOpen className="w-4 h-4 text-accent transition-transform group-hover:rotate-6" />
             <span>{isOpening ? 'Opening Book...' : 'Open Notebook'}</span>
-            <ArrowRight className="w-4 h-4 text-stone-400 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 text-muted group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
       </div>
@@ -65,9 +65,9 @@ export function NotebookCover({ onOpen, isOpening = false }: NotebookCoverProps)
           }
         }}
       >
-        {/* Soft shadow below notebook */}
+        {/* Soft shadow below notebook with ambient lighting in dark mode */}
         <div
-          className={`absolute -inset-4 bg-stone-900/15 rounded-2xl blur-xl transition-all duration-700 ${
+          className={`absolute -inset-4 bg-stone-900/15 dark:bg-blue-600/20 rounded-2xl blur-xl dark:blur-2xl transition-all duration-700 ${
             isOpening
               ? 'scale-125 opacity-70'
               : isHovered
@@ -88,21 +88,21 @@ export function NotebookCover({ onOpen, isOpening = false }: NotebookCoverProps)
         >
           {/* UNDERNEATH OPEN SPREAD (Revealed as front cover opens) */}
           <div
-            className={`absolute inset-0 bg-[#FFFDF7] rounded-xl flex overflow-hidden border border-[#D9D4C8] shadow-2xl transition-opacity duration-500 ${
+            className={`paper-mode absolute inset-0 bg-page rounded-xl flex overflow-hidden border border-line shadow-2xl transition-opacity duration-500 ${
               isOpening ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
           >
             {/* Left Page (Endpaper / Index) */}
-            <div className="w-1/2 p-3 sm:p-6 md:p-8 notebook-ruled flex flex-col justify-between border-r border-[#D9D4C8]">
+            <div className="w-1/2 p-3 sm:p-6 md:p-8 notebook-ruled flex flex-col justify-between border-r border-line">
               <div>
-                <div className="font-mono text-xs text-[#2457D6] uppercase tracking-wider mb-2">
+                <div className="font-mono text-xs text-accent uppercase tracking-wider mb-2">
                   CODEINK · VOLUME 01
                 </div>
-                <h3 className="text-xl font-bold text-stone-900 font-sans">
+                <h3 className="text-xl font-bold text-ink font-sans">
                   Table of Contents
                 </h3>
-                <div className="h-0.5 w-12 bg-[#2457D6] mt-1 mb-4" />
-                <div className="space-y-2 text-xs font-mono text-stone-600">
+                <div className="h-0.5 w-12 bg-accent mt-1 mb-4" />
+                <div className="space-y-2 text-xs font-mono text-muted">
                   <div className="flex justify-between"><span>01 Foundations & Compilation</span><span>Pg 02</span></div>
                   <div className="flex justify-between"><span>02 Variables & Memory</span><span>Pg 04</span></div>
                   <div className="flex justify-between"><span>03 Control Flow & Loops</span><span>Pg 06</span></div>
@@ -110,7 +110,7 @@ export function NotebookCover({ onOpen, isOpening = false }: NotebookCoverProps)
                   <div className="flex justify-between"><span>05 Pointers & Addresses</span><span>Pg 10</span></div>
                 </div>
               </div>
-              <div className="font-handwritten text-stone-400 text-xs text-right">
+              <div className="font-handwritten text-muted text-xs text-right">
                 left spread
               </div>
             </div>
@@ -121,21 +121,21 @@ export function NotebookCover({ onOpen, isOpening = false }: NotebookCoverProps)
             {/* Right Page (Chapter 1) */}
             <div className="w-1/2 p-3 sm:p-6 md:p-8 notebook-ruled flex flex-col justify-between">
               <div>
-                <div className="font-mono text-xs text-[#2457D6] uppercase tracking-wider mb-2">
+                <div className="font-mono text-xs text-accent uppercase tracking-wider mb-2">
                   CHAPTER 01 · FOUNDATIONS
                 </div>
-                <h3 className="text-xl font-bold text-stone-900 font-sans">
+                <h3 className="text-xl font-bold text-ink font-sans">
                   The Compilation Pipeline
                 </h3>
-                <div className="h-0.5 w-12 bg-[#2457D6] mt-1 mb-4" />
-                <p className="text-xs text-stone-700 font-serif italic mb-3">
+                <div className="h-0.5 w-12 bg-accent mt-1 mb-4" />
+                <p className="text-xs text-ink font-serif italic mb-3">
                   "Source code (.c) translates through preprocessor, compiler, assembler and linker..."
                 </p>
-                <div className="p-2.5 bg-stone-900 rounded font-mono text-[11px] text-stone-200">
+                <div className="p-2.5 bg-code border border-line rounded font-mono text-[11px] text-ink">
                   gcc -Wall -Wextra main.c -o a.out
                 </div>
               </div>
-              <div className="font-handwritten text-stone-400 text-xs text-right">
+              <div className="font-handwritten text-muted text-xs text-right">
                 Page 03
               </div>
             </div>
@@ -143,7 +143,7 @@ export function NotebookCover({ onOpen, isOpening = false }: NotebookCoverProps)
 
           {/* FRONT COVER (Flips open leftwards on click) */}
           <div
-            className={`absolute inset-0 rounded-r-2xl rounded-l-md border-2 border-stone-800/80 bg-linear-to-tr from-[#16191E] via-[#1F252E] to-[#29303B] overflow-hidden transform-style-3d shadow-notebook-cover ${
+            className={`absolute inset-0 rounded-r-2xl rounded-l-md border-2 border-stone-800/80 dark:border-stone-600/80 dark:ring-1 dark:ring-white/20 bg-linear-to-tr from-[#16191E] via-[#1F252E] to-[#29303B] dark:from-[#151921] dark:via-[#1E2532] dark:to-[#2B3547] overflow-hidden transform-style-3d shadow-notebook-cover dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.95),0_0_35px_rgba(59,130,246,0.18)] ${
               isOpening
                 ? 'transition-transform duration-1000 origin-left -rotate-y-180 opacity-0'
                 : isHovered
@@ -161,10 +161,10 @@ export function NotebookCover({ onOpen, isOpening = false }: NotebookCoverProps)
             />
 
             {/* Notebook Spine (left edge binding) */}
-            <div className="absolute top-0 bottom-0 left-0 w-8 sm:w-10 bg-linear-to-r from-stone-950 via-[#12151A] to-stone-900/80 border-r border-stone-800/80 flex flex-col justify-between py-8 items-center">
-              <div className="w-1.5 h-12 bg-stone-700/60 rounded-full" />
-              <div className="w-1.5 h-12 bg-stone-700/60 rounded-full" />
-              <div className="w-1.5 h-12 bg-stone-700/60 rounded-full" />
+            <div className="absolute top-0 bottom-0 left-0 w-8 sm:w-10 bg-linear-to-r from-stone-950 via-[#12151A] to-stone-900/80 border-r border-stone-800/80 dark:border-stone-700/80 flex flex-col justify-between py-8 items-center">
+              <div className="w-1.5 h-12 bg-stone-700/60 dark:bg-amber-400/40 rounded-full" />
+              <div className="w-1.5 h-12 bg-stone-700/60 dark:bg-amber-400/40 rounded-full" />
+              <div className="w-1.5 h-12 bg-stone-700/60 dark:bg-amber-400/40 rounded-full" />
             </div>
 
             {/* Code Ink Stylus Pen (slotted on right edge) */}
@@ -176,7 +176,7 @@ export function NotebookCover({ onOpen, isOpening = false }: NotebookCoverProps)
                 className="w-full h-3 bg-transparent"
                 style={{
                   clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
-                  backgroundColor: '#F7F3EA'
+                  backgroundColor: 'var(--surface-app)'
                 }}
               />
             </div>
@@ -244,7 +244,7 @@ export function NotebookCover({ onOpen, isOpening = false }: NotebookCoverProps)
         </div>
 
         {/* Ambient Click Hint */}
-        <p className="text-center font-handwritten text-stone-500 text-sm mt-5">
+        <p className="text-center font-handwritten text-muted text-sm mt-5">
           {isOpening ? 'Physically opening your notebook...' : 'Tap the cover or button above to unfold pages'}
         </p>
       </div>

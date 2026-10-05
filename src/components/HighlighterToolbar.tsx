@@ -64,16 +64,16 @@ export function HighlighterToolbar({
         - Exact fixed width (w-[236px]) and height (h-[78px])
         - No transition-all on container so border and shadow NEVER jitter or shake
       */}
-      <div className="w-[236px] h-[78px] flex flex-col items-center justify-between bg-[#FFFDF7]/95 backdrop-blur-md px-3 pt-2 pb-1.5 rounded-2xl border border-[#D9D4C8] shadow-xl shadow-stone-900/10">
+      <div className="w-[236px] h-[78px] flex flex-col items-center justify-between bg-raised/95 backdrop-blur-md px-3 pt-2 pb-1.5 rounded-2xl border border-line shadow-xl shadow-black/25">
         {/* Stable Header (Fixed height, no layout shifts) */}
-        <div className="w-full flex items-center justify-between px-1 h-3.5 text-[9px] font-mono tracking-widest text-stone-500 font-bold">
+        <div className="w-full flex items-center justify-between px-1 h-3.5 text-[9px] font-mono tracking-widest text-muted font-bold">
           <span>CODEINK HIGHLIGHTER</span>
           <div className="flex items-center gap-1.5">
             <span
               className="w-1.5 h-1.5 rounded-full transition-colors duration-200"
               style={{ backgroundColor: activeColorHex }}
             />
-            <span className="text-[8px] uppercase tracking-wider text-stone-500 font-mono">
+            <span className="text-[8px] uppercase tracking-wider text-muted font-mono">
               {selectedTool}
             </span>
           </div>
@@ -120,7 +120,7 @@ export function HighlighterToolbar({
                   {/* Marker Barrel with vibrant gradient and 3D sheen */}
                   <div
                     className={`w-full flex-1 bg-linear-to-b ${pen.barrelClass} relative overflow-hidden rounded-b-md flex justify-center shadow-xs ${
-                      isSelected ? 'ring-2 ring-stone-900 ring-offset-1 ring-offset-[#FFFDF7]' : ''
+                      isSelected ? 'ring-2 ring-accent ring-offset-1 ring-offset-raised' : ''
                     }`}
                   >
                     {/* Left edge 3D light reflection highlight */}
@@ -145,7 +145,7 @@ export function HighlighterToolbar({
           })}
 
           {/* Minimal Static Divider between Pens and Eraser */}
-          <div className="h-6 w-px bg-stone-300 mx-0.5 mb-2 self-center shrink-0" />
+          <div className="h-6 w-px bg-line mx-0.5 mb-2 self-center shrink-0" />
 
           {/* DEDICATED PHYSICAL ERASER TOOL */}
           <button
@@ -178,7 +178,7 @@ export function HighlighterToolbar({
               {/* Cardboard Protective Sleeve */}
               <div
                 className={`w-full flex-1 bg-[#1E293B] relative overflow-hidden rounded-b-xs border border-stone-800 flex flex-col justify-between py-0.5 shadow-xs ${
-                  selectedTool === 'eraser' ? 'ring-2 ring-stone-900 ring-offset-1 ring-offset-[#FFFDF7]' : ''
+                  selectedTool === 'eraser' ? 'ring-2 ring-accent ring-offset-1 ring-offset-raised' : ''
                 }`}
               >
                 {/* Thin CODEINK blue accent stripe */}
@@ -194,7 +194,7 @@ export function HighlighterToolbar({
             {/* Fixed-height Indicator Slot */}
             <div className="h-1.5 w-full flex items-center justify-center mt-0.5">
               <span
-                className={`w-1.5 h-1.5 rounded-full bg-stone-900 transition-opacity duration-200 ${
+                className={`w-1.5 h-1.5 rounded-full bg-ink transition-opacity duration-200 ${
                   selectedTool === 'eraser' ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
                 }`}
               />

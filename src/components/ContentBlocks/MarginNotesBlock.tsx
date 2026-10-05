@@ -24,33 +24,33 @@ export function MarginNotesBlock({ topicId, savedNote, onSaveNote }: MarginNotes
   };
 
   return (
-    <div className="my-6 pt-4 border-t border-[#D9D4C8]/80">
+    <div className="my-6 pt-4 border-t border-line">
       <div className="flex items-center justify-between">
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-2 text-xs font-semibold text-stone-700 hover:text-[#2457D6] transition-colors"
+          className="flex items-center gap-2 text-xs font-semibold text-ink hover:text-accent transition-colors cursor-pointer"
         >
-          <PenLine className="w-3.5 h-3.5 text-[#2457D6]" />
+          <PenLine className="w-3.5 h-3.5 text-accent" />
           <span className="uppercase tracking-wider text-[11px]">
             {isOpen ? 'Fold Student Margin Notes' : 'Open Student Margin Notes'}
           </span>
           {savedNote && !isOpen && (
-            <span className="font-handwritten text-sm text-[#2457D6] normal-case">
+            <span className="font-handwritten text-sm text-accent normal-case">
               (1 note saved)
             </span>
           )}
         </button>
 
-        <span className="font-handwritten text-xs text-stone-400 select-none">
+        <span className="font-handwritten text-xs text-muted select-none">
           personal annotations
         </span>
       </div>
 
       {isOpen && (
-        <div className="mt-3 p-4 bg-[#FFF9DF] rounded-lg border border-[#EADB9F] shadow-xs relative">
+        <div className="mt-3 p-4 bg-[#FFF9DF] dark:bg-[#2C271E] rounded-lg border border-[#EADB9F] dark:border-[#4A402D] shadow-xs relative">
           <div className="flex items-center justify-between mb-2">
-            <span className="font-handwritten text-base text-stone-700 font-bold">
+            <span className="font-handwritten text-base text-stone-700 dark:text-ink font-bold">
               My Handwritten Margin Scribbles:
             </span>
             <div className="flex items-center gap-2">
@@ -58,7 +58,7 @@ export function MarginNotesBlock({ topicId, savedNote, onSaveNote }: MarginNotes
                 <button
                   type="button"
                   onClick={handleClear}
-                  className="p-1 text-stone-400 hover:text-rose-600 transition-colors"
+                  className="p-1 text-muted hover:text-rose-600 transition-colors cursor-pointer"
                   title="Clear note"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
@@ -67,11 +67,11 @@ export function MarginNotesBlock({ topicId, savedNote, onSaveNote }: MarginNotes
               <button
                 type="button"
                 onClick={handleSave}
-                className="flex items-center gap-1 px-2.5 py-1 bg-stone-900 text-stone-100 hover:bg-stone-800 rounded text-xs transition-colors"
+                className="flex items-center gap-1 px-2.5 py-1 bg-stone-900 dark:bg-stone-100 text-stone-100 dark:text-stone-900 hover:bg-stone-800 dark:hover:bg-white rounded text-xs transition-colors cursor-pointer font-medium"
               >
                 {savedSuccess ? (
                   <>
-                    <Check className="w-3 h-3 text-emerald-400" />
+                    <Check className="w-3 h-3 text-emerald-400 dark:text-emerald-600" />
                     <span>Saved</span>
                   </>
                 ) : (
@@ -89,7 +89,7 @@ export function MarginNotesBlock({ topicId, savedNote, onSaveNote }: MarginNotes
             onChange={(e) => setNoteText(e.target.value)}
             placeholder="Jot down memory tricks, exam reminders, or question notes..."
             rows={3}
-            className="w-full p-2 bg-transparent border-0 font-handwritten text-lg text-stone-800 placeholder:text-stone-400 focus:outline-hidden resize-y leading-relaxed"
+            className="w-full p-2 bg-transparent border-0 font-handwritten text-lg text-stone-800 dark:text-ink placeholder:text-muted focus:outline-hidden resize-y leading-relaxed"
           />
         </div>
       )}

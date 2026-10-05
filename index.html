@@ -39,6 +39,22 @@
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#1E232A" />
 
+    <!-- Immediate theme initialization to prevent flash of un-themed content -->
+    <script>
+      (function () {
+        try {
+          var choice = localStorage.getItem('codeink_theme') || 'system';
+          var dark =
+            choice === 'dark' ||
+            (choice === 'system' &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
+
     <!-- Google Search Console Verification Meta Tag -->
     <meta name="google-site-verification" content="GGdgAR2rbdjO0oab-oe61IOwAN5NCx80cyqK4Si-3Sw" />
 

@@ -45,17 +45,17 @@ export function ToolDetailsModal({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-xl bg-white rounded-2xl border border-[#D9D4C8] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+        className="relative w-full max-w-xl bg-raised rounded-2xl border border-line shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
       >
         {/* Header Ribbon */}
-        <div className="bg-[#F7F3EA] border-b border-[#D9D4C8] px-5 py-4 flex items-center justify-between gap-3">
+        <div className="bg-page border-b border-line px-5 py-4 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <ToolLogo tool={tool} size="lg" />
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <h2 className="text-lg font-bold text-[#171717]">{tool.name}</h2>
+                <h2 className="text-lg font-bold text-ink">{tool.name}</h2>
                 {tool.featured && (
-                  <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200">
+                  <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
                     <Sparkles className="w-3 h-3 fill-amber-400" />
                     Top Pick
                   </span>
@@ -65,7 +65,7 @@ export function ToolDetailsModal({
                 href={tool.websiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs font-mono text-[#2457D6] hover:underline inline-flex items-center gap-1"
+                className="text-xs font-mono text-accent hover:underline inline-flex items-center gap-1"
               >
                 <span>{tool.domain}</span>
                 <ExternalLink className="w-3 h-3" />
@@ -79,8 +79,8 @@ export function ToolDetailsModal({
               onClick={() => onToggleBookmark(tool.id)}
               className={`p-2 rounded-lg border transition-colors cursor-pointer ${
                 isBookmarked
-                  ? 'bg-amber-50 border-amber-300 text-amber-600'
-                  : 'bg-white border-stone-200 text-stone-400 hover:text-stone-700 hover:bg-stone-50'
+                  ? 'bg-amber-500/15 border-amber-500/30 text-amber-600 dark:text-amber-400'
+                  : 'bg-page border-line text-muted hover:text-ink hover:bg-raised'
               }`}
               title={isBookmarked ? 'Remove bookmark' : 'Bookmark this tool'}
             >
@@ -90,7 +90,7 @@ export function ToolDetailsModal({
             <button
               type="button"
               onClick={onClose}
-              className="p-2 rounded-lg hover:bg-stone-200 text-stone-500 hover:text-stone-900 transition-colors cursor-pointer"
+              className="p-2 rounded-lg hover:bg-page text-muted hover:text-ink transition-colors cursor-pointer"
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />
@@ -99,36 +99,36 @@ export function ToolDetailsModal({
         </div>
 
         {/* Modal Body */}
-        <div className="p-5 sm:p-6 overflow-y-auto space-y-4 text-stone-700">
+        <div className="p-5 sm:p-6 overflow-y-auto space-y-4 text-ink">
           {/* Tagline / Overview */}
           <div>
-            <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-stone-400 mb-1">
+            <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-muted mb-1">
               About This Tool
             </h4>
-            <p className="text-sm leading-relaxed text-stone-800 font-sans">
+            <p className="text-sm leading-relaxed text-ink font-sans">
               {tool.description}
             </p>
           </div>
 
           {/* Free Tier Allowance Card */}
-          <div className="p-4 rounded-xl bg-emerald-50/60 border border-emerald-200/80">
-            <div className="flex items-center gap-2 mb-1 text-emerald-800 font-semibold text-xs font-mono uppercase tracking-wider">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+          <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/25">
+            <div className="flex items-center gap-2 mb-1 text-emerald-700 dark:text-emerald-400 font-semibold text-xs font-mono uppercase tracking-wider">
+              <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               <span>What You Get Completely Free</span>
             </div>
-            <p className="text-sm text-emerald-950 font-medium leading-relaxed">
+            <p className="text-sm text-emerald-950 dark:text-emerald-200 font-medium leading-relaxed">
               {tool.freeTierDetails}
             </p>
           </div>
 
           {/* Student Perk Card (if applicable) */}
           {tool.studentPerk && (
-            <div className="p-3.5 rounded-xl bg-purple-50/70 border border-purple-200">
-              <div className="flex items-center gap-2 mb-1 text-purple-800 font-semibold text-xs font-mono uppercase tracking-wider">
-                <GraduationCap className="w-4 h-4 text-purple-600" />
+            <div className="p-3.5 rounded-xl bg-purple-500/10 border border-purple-500/25">
+              <div className="flex items-center gap-2 mb-1 text-purple-700 dark:text-purple-300 font-semibold text-xs font-mono uppercase tracking-wider">
+                <GraduationCap className="w-4 h-4 text-purple-600 dark:text-purple-400" />
                 <span>Special Student Benefit</span>
               </div>
-              <p className="text-xs text-purple-950 font-medium">
+              <p className="text-xs text-purple-950 dark:text-purple-200 font-medium">
                 {tool.studentPerk}
               </p>
             </div>
@@ -136,7 +136,7 @@ export function ToolDetailsModal({
 
           {/* Technology & Workflow Tags */}
           <div>
-            <div className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-stone-400 mb-2">
+            <div className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-muted mb-2">
               <Tag className="w-3.5 h-3.5" />
               <span>Tags & Capabilities</span>
             </div>
@@ -144,7 +144,7 @@ export function ToolDetailsModal({
               {tool.tags.map((t) => (
                 <span
                   key={t}
-                  className="text-xs font-mono px-2.5 py-1 rounded-md bg-stone-100 text-stone-700 border border-stone-200/80"
+                  className="text-xs font-mono px-2.5 py-1 rounded-md bg-page text-muted border border-line"
                 >
                   #{t}
                 </span>
@@ -154,20 +154,20 @@ export function ToolDetailsModal({
         </div>
 
         {/* Modal Actions Footer */}
-        <div className="bg-[#F7F3EA] border-t border-[#D9D4C8] px-5 py-3.5 flex items-center justify-between gap-3">
+        <div className="bg-page border-t border-line px-5 py-3.5 flex items-center justify-between gap-3">
           <button
             type="button"
             onClick={handleCopyLink}
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-stone-300 bg-white text-stone-700 hover:bg-stone-50 text-xs font-medium transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-line bg-raised text-ink hover:bg-page text-xs font-medium transition-colors cursor-pointer"
           >
             {copied ? (
               <>
-                <Check className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Link Copied!</span>
+                <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                <span className="text-emerald-600 dark:text-emerald-400">Link Copied!</span>
               </>
             ) : (
               <>
-                <Copy className="w-3.5 h-3.5" />
+                <Copy className="w-3.5 h-3.5 text-muted" />
                 <span>Copy Link</span>
               </>
             )}
@@ -177,7 +177,7 @@ export function ToolDetailsModal({
             href={tool.websiteUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-lg bg-[#2457D6] hover:bg-blue-700 text-white text-xs font-bold shadow-xs hover:shadow transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 py-2 rounded-lg bg-accent hover:opacity-90 text-white text-xs font-bold shadow-xs hover:shadow transition-all cursor-pointer"
           >
             <span>Open {tool.name}</span>
             <ExternalLink className="w-3.5 h-3.5" />

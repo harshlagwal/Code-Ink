@@ -99,16 +99,16 @@ export function PracticeSession({
   };
 
   return (
-    <div className="my-6 p-4 sm:p-6 rounded-lg bg-[#FAF8F2] border border-[#D9D4C8] shadow-2xs">
+    <div className="my-6 p-4 sm:p-6 rounded-lg bg-raised border border-line shadow-2xs">
       {/* Header */}
-      <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#D9D4C8]/80 text-xs">
+      <div className="flex items-center justify-between pb-3 mb-4 border-b border-line text-xs">
         <div className="flex items-center gap-2">
-          <HelpCircle className="w-4 h-4 text-[#2457D6]" />
-          <span className="font-bold uppercase tracking-wider text-[#171717] text-[11px]">
+          <HelpCircle className="w-4 h-4 text-accent" />
+          <span className="font-bold uppercase tracking-wider text-ink text-[11px]">
             PRACTICE SESSION · CONCEPT MASTERY
           </span>
         </div>
-        <span className="font-handwritten text-xs text-stone-500">
+        <span className="font-handwritten text-xs text-muted">
           test your understanding
         </span>
       </div>
@@ -123,10 +123,10 @@ export function PracticeSession({
           const isMistakeAdded = addedMistakeIds[q.id];
 
           return (
-            <div key={q.id} className="pb-4 border-b border-[#D9D4C8]/40 last:border-b-0 last:pb-0">
+            <div key={q.id} className="pb-4 border-b border-line last:border-b-0 last:pb-0">
               <div className="flex items-start justify-between gap-3 mb-2">
-                <h4 className="text-xs sm:text-sm font-semibold text-stone-900 leading-relaxed">
-                  <span className="text-[#2457D6] font-mono mr-1.5">Q{qIndex + 1}.</span>
+                <h4 className="text-xs sm:text-sm font-semibold text-ink leading-relaxed">
+                  <span className="text-accent font-mono mr-1.5">Q{qIndex + 1}.</span>
                   {q.question}
                 </h4>
 
@@ -134,7 +134,7 @@ export function PracticeSession({
                   <button
                     type="button"
                     onClick={() => handleReset(q.id)}
-                    className="p-1 text-stone-400 hover:text-stone-700 transition-colors shrink-0 cursor-pointer"
+                    className="p-1 text-muted hover:text-ink transition-colors shrink-0 cursor-pointer"
                     title="Retry question"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
@@ -152,15 +152,15 @@ export function PracticeSession({
               {/* Options */}
               <div className="space-y-1.5 my-3">
                 {q.options.map((opt, optIdx) => {
-                  let btnStyle = 'border-[#D9D4C8] bg-white text-stone-800 hover:border-stone-400 hover:bg-stone-50';
+                  let btnStyle = 'border border-line bg-page text-ink hover:border-accent hover:bg-raised';
 
                   if (hasAnswered) {
                     if (optIdx === q.correctIndex) {
-                      btnStyle = 'border-emerald-500 bg-emerald-50/90 text-emerald-950 font-medium';
+                      btnStyle = 'border-emerald-500/80 bg-emerald-500/15 text-emerald-800 dark:text-emerald-200 font-medium';
                     } else if (optIdx === selected) {
-                      btnStyle = 'border-rose-400 bg-rose-50/90 text-rose-950';
+                      btnStyle = 'border-rose-500/80 bg-rose-500/15 text-rose-800 dark:text-rose-200';
                     } else {
-                      btnStyle = 'border-[#D9D4C8]/50 bg-white/50 text-stone-400';
+                      btnStyle = 'border-line bg-page/50 text-muted';
                     }
                   }
 
@@ -172,14 +172,14 @@ export function PracticeSession({
                       className={`w-full text-left p-2.5 rounded border text-xs transition-all flex items-center justify-between gap-3 cursor-pointer ${btnStyle}`}
                     >
                       <div className="flex items-center gap-2.5">
-                        <span className="w-5 h-5 rounded-full border border-stone-300 flex items-center justify-center font-mono text-[10px] shrink-0 text-stone-600 bg-stone-50">
+                        <span className="w-5 h-5 rounded-full border border-line flex items-center justify-center font-mono text-[10px] shrink-0 text-muted bg-raised">
                           {String.fromCharCode(65 + optIdx)}
                         </span>
                         <span className="leading-snug">{opt}</span>
                       </div>
 
                       {hasAnswered && optIdx === q.correctIndex && (
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                       )}
                       {hasAnswered && optIdx === selected && optIdx !== q.correctIndex && (
                         <XCircle className="w-4 h-4 text-rose-500 shrink-0" />
@@ -195,7 +195,7 @@ export function PracticeSession({
                   <button
                     type="button"
                     onClick={() => handleToggleReveal(q.id)}
-                    className="inline-flex items-center gap-1.5 text-[11px] font-mono text-[#2457D6] hover:underline cursor-pointer"
+                    className="inline-flex items-center gap-1.5 text-[11px] font-mono text-accent hover:underline cursor-pointer"
                   >
                     {isRevealed ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
                     <span>{isRevealed ? 'Hide Explanation' : 'Show Answer'}</span>
@@ -205,7 +205,7 @@ export function PracticeSession({
                     <button
                       type="button"
                       onClick={() => onOpenAIStudyDesk(q.question)}
-                      className="inline-flex items-center gap-1 text-[11px] font-mono text-indigo-700 hover:underline cursor-pointer"
+                      className="inline-flex items-center gap-1 text-[11px] font-mono text-accent hover:underline cursor-pointer"
                       title="Ask AI Study Desk about this question"
                     >
                       <Bot className="w-3 h-3" />
@@ -218,7 +218,7 @@ export function PracticeSession({
                   <div className="flex items-center gap-2">
                     <span
                       className={`font-handwritten text-sm font-bold ${
-                        isCorrect ? 'text-emerald-700' : 'text-rose-700'
+                        isCorrect ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
                       }`}
                     >
                       {isCorrect ? '✓ Correct Answer' : '✕ Review Concept'}
@@ -232,8 +232,8 @@ export function PracticeSession({
                 <div
                   className={`mt-2.5 p-3 rounded text-xs leading-relaxed border ${
                     isCorrect
-                      ? 'bg-emerald-50/70 border-emerald-200 text-emerald-900'
-                      : 'bg-amber-50/70 border-amber-200 text-amber-900'
+                      ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-800 dark:text-emerald-200'
+                      : 'bg-amber-500/10 border-amber-500/30 text-amber-800 dark:text-amber-200'
                   }`}
                 >
                   <div className="font-semibold mb-0.5 font-mono text-[10px] uppercase">

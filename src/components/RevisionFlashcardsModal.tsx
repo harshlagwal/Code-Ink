@@ -138,10 +138,10 @@ export function RevisionFlashcardsModal({
         </div>
 
         {/* Physical 3D Index Card Container */}
-        <div className="p-5 sm:p-8 flex-1 flex flex-col items-center justify-center min-h-[360px] perspective-1000">
+        <div className="p-3.5 sm:p-8 flex-1 flex flex-col items-center justify-center min-h-[260px] sm:min-h-[340px] perspective-1000">
           <div
             onClick={handleFlip}
-            className={`w-full max-w-lg min-h-[300px] p-6 sm:p-7 rounded-xl border-2 transition-all duration-300 shadow-md flex flex-col justify-between cursor-pointer ${
+            className={`w-full max-w-lg min-h-[220px] sm:min-h-[280px] p-4 sm:p-7 rounded-2xl border-2 transition-all duration-300 shadow-md flex flex-col justify-between cursor-pointer ${
               isFlipped
                 ? 'bg-[#FFFDF7] border-blue-300 ring-2 ring-blue-100'
                 : 'bg-white border-[#D9D4C8] hover:border-stone-400'

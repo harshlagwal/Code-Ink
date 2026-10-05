@@ -155,71 +155,71 @@ export function ToolsVaultView({ onGoToNotebook }: ToolsVaultViewProps) {
   return (
     <div className="w-full space-y-6 pb-16">
       {/* 1. HERO BANNER: Engineering Workshop Style */}
-      <section className="relative overflow-hidden rounded-2xl bg-white border border-[#D9D4C8] shadow-xs p-6 sm:p-8 md:p-10">
+      <section className="relative overflow-hidden rounded-2xl bg-raised border border-line shadow-xs p-6 sm:p-8 md:p-10">
         {/* Subtle Engineering Grid Background */}
         <div className="absolute inset-0 bg-[radial-gradient(#2457d6_1px,transparent_1px)] [background-size:20px_20px] opacity-[0.04] pointer-events-none" />
 
         <div className="relative z-10 max-w-4xl">
           <div className="flex items-center gap-2 mb-3">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#2457D6] text-xs font-semibold font-mono tracking-wide">
-              <Sparkles className="w-3.5 h-3.5 fill-[#2457D6]" />
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent/15 border border-accent/30 text-accent text-xs font-semibold font-mono tracking-wide">
+              <Sparkles className="w-3.5 h-3.5 fill-current" />
               CODE INK ARSENAL · 100 VERIFIED FREE TOOLS
             </span>
-            <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-mono font-medium">
+            <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-medium">
               <CheckCircle2 className="w-3.5 h-3.5" />
               100% Student Tested
             </span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-[#171717] tracking-tight font-sans leading-tight mb-3">
-            Every tool you need to build, deploy, & ship. <span className="text-[#2457D6] underline decoration-blue-200 decoration-wavy underline-offset-6">Completely Free.</span>
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-ink tracking-tight font-sans leading-tight mb-3">
+            Every tool you need to build, deploy, & ship. <span className="text-accent underline decoration-accent/40 decoration-wavy underline-offset-6">Completely Free.</span>
           </h1>
 
-          <p className="text-sm sm:text-base text-stone-600 leading-relaxed font-sans max-w-3xl mb-6">
+          <p className="text-sm sm:text-base text-muted leading-relaxed font-sans max-w-3xl mb-6">
             A hand-curated directory of 100 premier developer tools offering generous free tiers, student developer pack partnerships, and open-source models—complete with live logos, direct documentation, and allowance specs.
           </p>
 
           {/* Quick Metrics Bar */}
-          <div className="flex items-center gap-4 sm:gap-6 flex-wrap text-xs font-mono text-stone-600 pt-2 border-t border-[#D9D4C8]/80">
+          <div className="flex items-center gap-4 sm:gap-6 flex-wrap text-xs font-mono text-muted pt-2 border-t border-line">
             <div>
-              <span className="font-bold text-stone-900 text-sm">100</span> Curated Tools
+              <span className="font-bold text-ink text-sm">100</span> Curated Tools
             </div>
-            <div className="w-1 h-1 rounded-full bg-stone-300" />
+            <div className="w-1 h-1 rounded-full bg-line" />
             <div>
-              <span className="font-bold text-stone-900 text-sm">8</span> Domains
+              <span className="font-bold text-ink text-sm">8</span> Domains
             </div>
-            <div className="w-1 h-1 rounded-full bg-stone-300" />
+            <div className="w-1 h-1 rounded-full bg-line" />
             <div>
-              <span className="font-bold text-stone-900 text-sm">₹0 / $0</span> Cost Required
+              <span className="font-bold text-ink text-sm">₹0 / $0</span> Cost Required
             </div>
-            <div className="w-1 h-1 rounded-full bg-stone-300" />
+            <div className="w-1 h-1 rounded-full bg-line" />
             <div>
-              <span className="font-bold text-amber-600 text-sm">{bookmarkedToolIds.length}</span> Saved in Notebook
+              <span className="font-bold text-amber-500 text-sm">{bookmarkedToolIds.length}</span> Saved in Notebook
             </div>
           </div>
         </div>
       </section>
 
       {/* 2. SEARCH & CONTROLS TOOLBAR */}
-      <section className="bg-white rounded-xl border border-[#D9D4C8] shadow-2xs p-4 space-y-4">
+      <section className="bg-raised rounded-xl border border-line shadow-2xs p-4 space-y-4">
         {/* Top Search Line */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           {/* Search Box */}
           <div className="relative flex-1">
-            <Search className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <Search className="w-4 h-4 text-muted absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               ref={searchInputRef}
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by tool name, tag (#postgres, #ai), or domain (Ctrl + K)..."
-              className="w-full pl-10 pr-10 py-2.5 rounded-lg border border-[#D9D4C8] bg-[#FFFDF7] text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#2457D6]/30 focus:border-[#2457D6] transition-all"
+              className="w-full pl-10 pr-10 py-2.5 rounded-lg border border-line bg-page text-sm text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-stone-400 hover:text-stone-700 rounded cursor-pointer"
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-muted hover:text-ink rounded cursor-pointer"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -234,8 +234,8 @@ export function ToolsVaultView({ onGoToNotebook }: ToolsVaultViewProps) {
               onClick={() => setOnlyBookmarked(!onlyBookmarked)}
               className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border text-xs font-semibold transition-all cursor-pointer ${
                 onlyBookmarked
-                  ? 'bg-amber-100 border-amber-300 text-amber-800 shadow-2xs'
-                  : 'bg-stone-50 border-stone-200 text-stone-600 hover:bg-stone-100'
+                  ? 'bg-amber-500/15 border-amber-500/40 text-amber-500 shadow-2xs'
+                  : 'bg-page border-line text-muted hover:bg-raised hover:text-ink'
               }`}
             >
               <Star className={`w-3.5 h-3.5 ${onlyBookmarked ? 'fill-amber-500 text-amber-500' : ''}`} />
@@ -244,11 +244,11 @@ export function ToolsVaultView({ onGoToNotebook }: ToolsVaultViewProps) {
 
             {/* Sort Dropdown */}
             <div className="relative flex items-center">
-              <SlidersHorizontal className="w-3.5 h-3.5 text-stone-400 absolute left-3 pointer-events-none" />
+              <SlidersHorizontal className="w-3.5 h-3.5 text-muted absolute left-3 pointer-events-none" />
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
-                className="pl-8 pr-4 py-2 rounded-lg border border-stone-200 bg-stone-50 text-xs font-semibold text-stone-700 hover:bg-stone-100 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#2457D6]/30"
+                className="pl-8 pr-4 py-2 rounded-lg border border-line bg-page text-xs font-semibold text-ink hover:bg-raised cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent/30"
               >
                 <option value="featured">Sort: Featured Picks</option>
                 <option value="name">Sort: Name (A-Z)</option>
@@ -270,15 +270,15 @@ export function ToolsVaultView({ onGoToNotebook }: ToolsVaultViewProps) {
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-medium whitespace-nowrap transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-[#2457D6] text-white border-[#2457D6] shadow-xs'
-                    : 'bg-white text-stone-600 border-[#D9D4C8] hover:border-stone-400 hover:text-stone-900'
+                    ? 'bg-accent text-white border-accent shadow-xs'
+                    : 'bg-page text-muted border-line hover:border-accent hover:text-ink'
                 }`}
               >
-                <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-white' : 'text-stone-500'}`} />
+                <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-white' : 'text-muted'}`} />
                 <span>{cat.label}</span>
                 <span
                   className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
-                    isSelected ? 'bg-white/20 text-white' : 'bg-stone-100 text-stone-500'
+                    isSelected ? 'bg-white/20 text-white' : 'bg-raised text-muted'
                   }`}
                 >
                   {categoryCounts[cat.id] || 0}
@@ -289,9 +289,9 @@ export function ToolsVaultView({ onGoToNotebook }: ToolsVaultViewProps) {
         </div>
 
         {/* Pricing Secondary Filter Badges */}
-        <div className="flex items-center justify-between gap-3 pt-2 border-t border-[#D9D4C8]/60 text-xs flex-wrap">
+        <div className="flex items-center justify-between gap-3 pt-2 border-t border-line text-xs flex-wrap">
           <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="text-stone-400 font-mono text-[11px] mr-1">Tiers:</span>
+            <span className="text-muted font-mono text-[11px] mr-1">Tiers:</span>
             {[
               { id: 'all', label: 'All Tiers' },
               { id: 'free-forever', label: '100% Free Forever' },
@@ -307,8 +307,8 @@ export function ToolsVaultView({ onGoToNotebook }: ToolsVaultViewProps) {
                   onClick={() => setSelectedPricing(p.id as PricingType)}
                   className={`px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors cursor-pointer ${
                     active
-                      ? 'bg-stone-800 text-white'
-                      : 'bg-stone-100 hover:bg-stone-200 text-stone-600'
+                      ? 'bg-accent text-white'
+                      : 'bg-page hover:bg-raised text-muted hover:text-ink border border-line'
                   }`}
                 >
                   {p.label}
@@ -318,8 +318,8 @@ export function ToolsVaultView({ onGoToNotebook }: ToolsVaultViewProps) {
           </div>
 
           {/* Active Results Counter */}
-          <div className="text-xs font-mono text-stone-500">
-            Showing <span className="font-bold text-[#171717]">{filteredTools.length}</span> of {DEV_TOOLS.length} tools
+          <div className="text-xs font-mono text-muted">
+            Showing <span className="font-bold text-ink">{filteredTools.length}</span> of {DEV_TOOLS.length} tools
           </div>
         </div>
       </section>
@@ -352,18 +352,18 @@ export function ToolsVaultView({ onGoToNotebook }: ToolsVaultViewProps) {
         </motion.div>
       ) : (
         /* Empty State */
-        <div className="bg-white rounded-2xl border border-dashed border-[#D9D4C8] p-12 text-center max-w-lg mx-auto">
-          <div className="w-12 h-12 rounded-full bg-stone-100 flex items-center justify-center mx-auto mb-3 text-stone-400">
+        <div className="bg-raised rounded-2xl border border-dashed border-line p-12 text-center max-w-lg mx-auto">
+          <div className="w-12 h-12 rounded-full bg-page flex items-center justify-center mx-auto mb-3 text-muted">
             <Search className="w-6 h-6" />
           </div>
-          <h3 className="text-base font-bold text-stone-800 mb-1">No developer tools found</h3>
-          <p className="text-xs text-stone-500 mb-4">
+          <h3 className="text-base font-bold text-ink mb-1">No developer tools found</h3>
+          <p className="text-xs text-muted mb-4">
             No tools matched your current search query or filter combination.
           </p>
           <button
             type="button"
             onClick={handleResetFilters}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#2457D6] text-white text-xs font-semibold hover:bg-blue-700 transition-colors shadow-2xs cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-accent text-white text-xs font-semibold hover:bg-accent/90 transition-colors shadow-2xs cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Reset All Filters</span>

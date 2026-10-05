@@ -14,24 +14,24 @@ interface StickyNotesLayerProps {
 
 const COLOR_STYLES: Record<StickyColor, { bg: string; border: string; tape: string }> = {
   yellow: {
-    bg: 'bg-[#FEF9C3] text-amber-950',
-    border: 'border-[#FDE047]',
-    tape: 'bg-amber-300/60'
+    bg: 'bg-[#FEF9C3] dark:bg-[#342D18] text-amber-950 dark:text-amber-100',
+    border: 'border-[#FDE047] dark:border-[#635520]',
+    tape: 'bg-amber-300/60 dark:bg-amber-600/40'
   },
   pink: {
-    bg: 'bg-[#FCE7F3] text-pink-950',
-    border: 'border-[#F472B6]/60',
-    tape: 'bg-pink-300/60'
+    bg: 'bg-[#FCE7F3] dark:bg-[#331C28] text-pink-950 dark:text-pink-100',
+    border: 'border-[#F472B6]/60 dark:border-[#6E2E50]',
+    tape: 'bg-pink-300/60 dark:bg-pink-600/40'
   },
   mint: {
-    bg: 'bg-[#DCFCE7] text-emerald-950',
-    border: 'border-[#86EFAC]',
-    tape: 'bg-emerald-300/60'
+    bg: 'bg-[#DCFCE7] dark:bg-[#1C3124] text-emerald-950 dark:text-emerald-100',
+    border: 'border-[#86EFAC] dark:border-[#2D5A3C]',
+    tape: 'bg-emerald-300/60 dark:bg-emerald-600/40'
   },
   sky: {
-    bg: 'bg-[#E0F2FE] text-sky-950',
-    border: 'border-[#7DD3FC]',
-    tape: 'bg-sky-300/60'
+    bg: 'bg-[#E0F2FE] dark:bg-[#1B2B38] text-sky-950 dark:text-sky-100',
+    border: 'border-[#7DD3FC] dark:border-[#274D68]',
+    tape: 'bg-sky-300/60 dark:bg-sky-600/40'
   }
 };
 
@@ -73,8 +73,8 @@ export function StickyNotesLayer({
   return (
     <div className="my-4">
       {/* Top action trigger */}
-      <div className="flex items-center justify-between gap-2 mb-2 pb-1 border-b border-[#D9D4C8]/50">
-        <div className="flex items-center gap-1.5 text-xs font-handwritten text-stone-600">
+      <div className="flex items-center justify-between gap-2 mb-2 pb-1 border-b border-line">
+        <div className="flex items-center gap-1.5 text-xs font-handwritten text-muted">
           <Pin className="w-3.5 h-3.5 text-amber-600" />
           <span>Margin Post-It Notes ({pageNotes.length})</span>
         </div>
@@ -86,7 +86,7 @@ export function StickyNotesLayer({
               notebookAudio.playPencil();
               setIsAdding(true);
             }}
-            className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono text-stone-600 hover:text-stone-900 bg-stone-100 hover:bg-stone-200 border border-stone-300 transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono text-muted hover:text-ink bg-raised hover:bg-page border border-line transition-colors cursor-pointer"
           >
             <Plus className="w-3 h-3" />
             <span>Pin Post-It</span>
@@ -96,13 +96,13 @@ export function StickyNotesLayer({
 
       {/* New Sticky Note Creation Form */}
       {isAdding && (
-        <div className="p-3 mb-4 rounded-lg bg-[#FEF9C3] border border-[#FDE047] shadow-md animate-in fade-in zoom-in-95">
-          <div className="flex items-center justify-between pb-2 mb-2 border-b border-amber-300/60">
-            <span className="font-handwritten text-sm font-bold text-amber-900">Pin a Sticky Note:</span>
+        <div className="p-3 mb-4 rounded-lg bg-[#FEF9C3] dark:bg-[#342D18] border border-[#FDE047] dark:border-[#635520] shadow-md animate-in fade-in zoom-in-95">
+          <div className="flex items-center justify-between pb-2 mb-2 border-b border-amber-300/60 dark:border-amber-700/60">
+            <span className="font-handwritten text-sm font-bold text-amber-900 dark:text-amber-200">Pin a Sticky Note:</span>
             <button
               type="button"
               onClick={() => setIsAdding(false)}
-              className="text-stone-500 hover:text-stone-800 p-0.5 cursor-pointer"
+              className="text-muted hover:text-ink p-0.5 cursor-pointer"
             >
               <X className="w-3.5 h-3.5" />
             </button>
@@ -114,7 +114,7 @@ export function StickyNotesLayer({
               placeholder="Title (e.g. Viva Formula, Gotcha)"
               value={newTitle}
               onChange={e => setNewTitle(e.target.value)}
-              className="w-full px-2 py-1 text-xs font-semibold rounded bg-white/70 border border-amber-200 text-stone-900 focus:outline-none focus:ring-1 focus:ring-amber-500"
+              className="w-full px-2 py-1 text-xs font-semibold rounded bg-white/70 dark:bg-black/30 border border-amber-200 dark:border-amber-800 text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-1 focus:ring-amber-500"
               maxLength={40}
             />
 
@@ -123,7 +123,7 @@ export function StickyNotesLayer({
               value={newContent}
               onChange={e => setNewContent(e.target.value)}
               rows={3}
-              className="w-full p-2 text-xs sm:text-sm font-handwritten rounded bg-white/70 border border-amber-200 text-stone-900 focus:outline-none focus:ring-1 focus:ring-amber-500"
+              className="w-full p-2 text-xs sm:text-sm font-handwritten rounded bg-white/70 dark:bg-black/30 border border-amber-200 dark:border-amber-800 text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-1 focus:ring-amber-500"
               maxLength={400}
             />
 

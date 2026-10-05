@@ -50,26 +50,26 @@ export function NotebookBackCover({
     <div className="relative min-h-[calc(100vh-6rem)] flex flex-col items-center justify-center px-4 py-6 select-none">
       {/* Editorial Header */}
       <div className="text-center max-w-xl mx-auto mb-6">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-mono mb-2 tracking-wider uppercase shadow-2xs">
-          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-xs font-mono mb-2 tracking-wider uppercase shadow-2xs">
+          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
           <span>Volume Completed · Book Closed</span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#171717] font-sans">
-          {subject.name} <span className="text-[#2457D6]">Notebook</span>
+        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-ink font-sans">
+          {subject.name} <span className="text-accent">Notebook</span>
         </h1>
-        <p className="mt-1 text-base sm:text-lg font-serif italic text-stone-600">
+        <p className="mt-1 text-base sm:text-lg font-serif italic text-muted">
           "You read and understood every page of this book."
         </p>
       </div>
 
       {/* Center 3D Closed Hardcover Back Assembly (Matches NotebookCover.tsx Exactly) */}
       <div className="relative perspective-book select-none">
-        {/* Soft shadow below closed notebook */}
-        <div className="absolute -inset-4 bg-stone-900/20 rounded-2xl blur-xl" />
+        {/* Soft shadow below closed notebook with ambient lighting in dark mode */}
+        <div className="absolute -inset-4 bg-stone-900/20 dark:bg-blue-600/20 rounded-2xl blur-xl dark:blur-2xl" />
 
         {/* Physical Hardcover Back Plate (Spine on left, Pen on right — identical to front cover) */}
-        <div className="relative w-[320px] sm:w-[380px] md:w-[420px] h-[510px] sm:h-[550px] rounded-r-2xl rounded-l-md border-2 border-stone-800/90 bg-linear-to-tr from-[#16191E] via-[#1F252E] to-[#29303B] overflow-hidden shadow-2xl">
+        <div className="relative w-[320px] sm:w-[380px] md:w-[420px] h-[510px] sm:h-[550px] rounded-r-2xl rounded-l-md border-2 border-stone-800/90 dark:border-stone-600/80 dark:ring-1 dark:ring-white/20 bg-linear-to-tr from-[#16191E] via-[#1F252E] to-[#29303B] dark:from-[#151921] dark:via-[#1E2532] dark:to-[#2B3547] overflow-hidden shadow-2xl dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.95),0_0_35px_rgba(59,130,246,0.18)]">
           {/* Cloth micro-texture pattern — identical to front cover */}
           <div
             className="absolute inset-0 opacity-15 pointer-events-none"
@@ -80,10 +80,10 @@ export function NotebookBackCover({
           />
 
           {/* Notebook Spine (left edge binding) */}
-          <div className="absolute top-0 bottom-0 left-0 w-8 sm:w-10 bg-linear-to-r from-stone-950 via-[#12151A] to-stone-900/80 border-r border-stone-800/80 flex flex-col justify-between py-8 items-center">
-            <div className="w-1.5 h-12 bg-stone-700/60 rounded-full" />
-            <div className="w-1.5 h-12 bg-stone-700/60 rounded-full" />
-            <div className="w-1.5 h-12 bg-stone-700/60 rounded-full" />
+          <div className="absolute top-0 bottom-0 left-0 w-8 sm:w-10 bg-linear-to-r from-stone-950 via-[#12151A] to-stone-900/80 border-r border-stone-800/80 dark:border-stone-700/80 flex flex-col justify-between py-8 items-center">
+            <div className="w-1.5 h-12 bg-stone-700/60 dark:bg-amber-400/40 rounded-full" />
+            <div className="w-1.5 h-12 bg-stone-700/60 dark:bg-amber-400/40 rounded-full" />
+            <div className="w-1.5 h-12 bg-stone-700/60 dark:bg-amber-400/40 rounded-full" />
           </div>
 
           {/* Code Ink Stylus Pen (slotted on right edge) */}
@@ -95,7 +95,7 @@ export function NotebookBackCover({
               className="w-full h-3 bg-transparent"
               style={{
                 clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
-                backgroundColor: '#F7F3EA'
+                backgroundColor: 'var(--surface-app)'
               }}
             />
           </div>
@@ -225,10 +225,10 @@ export function NotebookBackCover({
           <button
             type="button"
             onClick={onBackToLastTopic}
-            className="py-2.5 px-2 rounded-lg border border-[#D9D4C8] bg-white hover:bg-stone-50 text-stone-700 text-xs font-mono flex items-center justify-center gap-1 transition-colors cursor-pointer shadow-2xs"
+            className="py-2.5 px-2 rounded-lg border border-line bg-raised hover:bg-page text-ink text-xs font-mono flex items-center justify-center gap-1 transition-colors cursor-pointer shadow-2xs"
             title="Read Chapter 17 / last topic again"
           >
-            <ChevronLeft className="w-3.5 h-3.5" />
+            <ChevronLeft className="w-3.5 h-3.5 text-muted" />
             <span>Ch {lastChapter ? String(lastChapter.number).padStart(2, '0') : ''}</span>
           </button>
 
@@ -238,10 +238,10 @@ export function NotebookBackCover({
               notebookAudio.playPageTurn();
               onReopenFirstPage();
             }}
-            className="py-2.5 px-2 rounded-lg border border-[#D9D4C8] bg-white hover:bg-stone-50 text-stone-700 text-xs font-mono flex items-center justify-center gap-1 transition-colors cursor-pointer shadow-2xs"
+            className="py-2.5 px-2 rounded-lg border border-line bg-raised hover:bg-page text-ink text-xs font-mono flex items-center justify-center gap-1 transition-colors cursor-pointer shadow-2xs"
             title="Open from Chapter 01"
           >
-            <RotateCcw className="w-3.5 h-3.5 text-stone-500" />
+            <RotateCcw className="w-3.5 h-3.5 text-muted" />
             <span>Page 1</span>
           </button>
 
@@ -251,7 +251,7 @@ export function NotebookBackCover({
               notebookAudio.playPencil();
               onExploreLibrary();
             }}
-            className="py-2.5 px-2 rounded-lg border border-[#D9D4C8] bg-white hover:bg-stone-50 text-[#2457D6] text-xs font-mono font-semibold flex items-center justify-center gap-1 transition-colors cursor-pointer shadow-2xs"
+            className="py-2.5 px-2 rounded-lg border border-line bg-raised hover:bg-page text-accent text-xs font-mono font-semibold flex items-center justify-center gap-1 transition-colors cursor-pointer shadow-2xs"
             title="Switch to another subject"
           >
             <Library className="w-3.5 h-3.5" />
