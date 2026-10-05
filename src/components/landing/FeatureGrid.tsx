@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from 'motion/react';
 import { fadeUp, fade, stagger, lineReveal } from '../../motion/variants';
+import { SpotlightCard } from './SpotlightCard';
 
 const CAPABILITIES = [
   {
@@ -174,20 +175,16 @@ export function FeatureGrid() {
         </motion.p>
       </motion.div>
 
-      {/* Feature columns with cascading stagger */}
+      {/* Feature cards with interactive cursor spotlight and illuminated borders */}
       <motion.div
         variants={stagger(0.1, 0.05)}
         initial={reduce ? false : 'hidden'}
         whileInView="show"
         viewport={{ once: true, amount: 0.05 }}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16 sm:gap-y-20"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
       >
         {CAPABILITIES.map((cap) => (
-          <motion.div
-            key={cap.headline}
-            variants={fadeUp}
-            className="flex flex-col items-start text-left group"
-          >
+          <SpotlightCard key={cap.headline}>
             {/* Icon */}
             <EngineeringIcon type={cap.iconType} />
 
@@ -197,10 +194,10 @@ export function FeatureGrid() {
             </h3>
 
             {/* Body */}
-            <p className="text-xs sm:text-sm text-muted leading-relaxed font-sans font-normal">
+            <p className="text-xs sm:text-sm text-muted leading-relaxed font-sans font-normal mt-auto">
               {cap.description}
             </p>
-          </motion.div>
+          </SpotlightCard>
         ))}
       </motion.div>
     </section>

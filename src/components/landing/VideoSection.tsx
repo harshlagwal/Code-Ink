@@ -1,9 +1,12 @@
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
+import { Volume2, VolumeX } from 'lucide-react';
 import { fadeUp, stagger } from '../../motion/variants';
 
 export function VideoSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMuted, setIsMuted] = useState(true);
   const reduce = useReducedMotion();
 
   // Scroll-linked cinematic scale — the Antigravity signature motion
@@ -16,6 +19,47 @@ export function VideoSection() {
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], reduce ? [1, 1, 1] : [0.25, 0.8, 1.0]);
   const y = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [56, 0]);
   const borderRadius = useTransform(scrollYProgress, [0, 1], reduce ? ['24px', '24px'] : ['36px', '20px']);
+
+  // Scroll-triggered silent autoplay: plays when scrolled in, pauses when scrolled away
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Enforce silent default
+    video.defaultMuted = true;
+    video.muted = true;
+    video.volume = 0;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  const toggleSound = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (isMuted) {
+      video.muted = false;
+      video.volume = 1;
+      setIsMuted(false);
+    } else {
+      video.muted = true;
+      video.volume = 0;
+      setIsMuted(true);
+    }
+  };
 
   return (
     <motion.section
@@ -41,18 +85,41 @@ export function VideoSection() {
       {/* Cinematic scale-up video — scroll-linked, not whileInView */}
       <motion.div
         style={{ scale, opacity, y, borderRadius }}
-        className="relative mx-auto w-full aspect-video overflow-hidden border border-line bg-raised shadow-2xl shadow-black/10 dark:shadow-black/60"
+        className="relative mx-auto w-full aspect-video overflow-hidden border border-line bg-raised shadow-2xl shadow-black/10 dark:shadow-black/60 group"
       >
         <video
+          ref={videoRef}
           className="w-full h-full object-cover"
-          controls
           playsInline
+          loop
+          muted
+          autoPlay
           preload="metadata"
           title="CODEINK Launch Film"
         >
           <source src="/video/codeink-launch.mp4" type="video/mp4" />
           Your browser does not support HTML5 video playback.
         </video>
+
+        {/* Minimal sound toggle pill — floating elegantly in corner */}
+        <button
+          type="button"
+          onClick={toggleSound}
+          aria-label={isMuted ? 'Unmute video audio' : 'Mute video audio'}
+          className="absolute bottom-4 right-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-md border border-white/10 text-white text-xs font-mono transition-all duration-200 cursor-pointer shadow-lg hover:scale-105 active:scale-95"
+        >
+          {isMuted ? (
+            <>
+              <VolumeX className="w-3.5 h-3.5 text-neutral-400" />
+              <span>Sound Off</span>
+            </>
+          ) : (
+            <>
+              <Volume2 className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+              <span>Sound On</span>
+            </>
+          )}
+        </button>
       </motion.div>
 
       {/* Caption row */}
@@ -60,7 +127,7 @@ export function VideoSection() {
         variants={fadeUp}
         className="mt-5 flex items-center justify-between text-[11px] font-mono text-muted"
       >
-        <span>Recorded directly in the browser environment</span>
+        <span>Recorded directly in the browser environment · Auto-plays on scroll</span>
         <span>1080p · 60fps</span>
       </motion.div>
     </motion.section>

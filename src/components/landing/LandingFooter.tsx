@@ -116,6 +116,16 @@ export function LandingFooter({ onEnter }: LandingFooterProps) {
           </div>
         </motion.div>
       </div>
+
+      {/* Giant Antigravity-Style Architectural Brand Watermark */}
+      <div className="mt-12 sm:mt-16 -mb-4 sm:-mb-8 w-full overflow-hidden select-none pointer-events-none flex justify-center">
+        <span
+          aria-hidden="true"
+          className="text-[14vw] sm:text-[16vw] font-black tracking-tighter leading-[0.8] text-center uppercase whitespace-nowrap bg-gradient-to-b from-[#171717]/12 via-[#171717]/6 to-transparent dark:from-[#F7F3EA]/20 dark:via-[#F7F3EA]/8 dark:to-transparent bg-clip-text text-transparent font-sans"
+        >
+          CODE INK
+        </span>
+      </div>
     </motion.footer>
   );
 }

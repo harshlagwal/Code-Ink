@@ -371,7 +371,6 @@ export function MarginCodePlayground({
         'EventSource',
         'location',
         'navigator',
-        'eval',
         'Function'
       ];
 
