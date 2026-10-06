@@ -3,8 +3,8 @@ import { PaperStyle } from '../types/notebook';
 import { ThemeToggle } from './ThemeToggle';
 
 interface NavbarProps {
-  currentView: 'landing' | 'home' | 'notebook' | 'library' | 'bookmarks' | 'progress' | 'ai-desk' | 'whiteboard' | 'tools';
-  onNavigate: (view: 'landing' | 'home' | 'notebook' | 'library' | 'bookmarks' | 'progress' | 'ai-desk' | 'whiteboard' | 'tools') => void;
+  currentView: 'landing' | 'home' | 'notebook' | 'library' | 'bookmarks' | 'progress' | 'ai-desk' | 'whiteboard' | 'tools' | 'privacy' | 'terms';
+  onNavigate: (view: 'landing' | 'home' | 'notebook' | 'library' | 'bookmarks' | 'progress' | 'ai-desk' | 'whiteboard' | 'tools' | 'privacy' | 'terms') => void;
   onOpenSearch: () => void;
   paperStyle: PaperStyle;
   onChangePaperStyle: (style: PaperStyle) => void;

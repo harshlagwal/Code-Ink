@@ -16,9 +16,10 @@ import { LandingFooter } from './LandingFooter';
 
 interface LandingPageProps {
   onEnter: () => void;
+  onNavigateLegal?: (tab: 'privacy' | 'terms') => void;
 }
 
-export function LandingPage({ onEnter }: LandingPageProps) {
+export function LandingPage({ onEnter, onNavigateLegal }: LandingPageProps) {
   const reduce = useReducedMotion();
 
   // Apple/Studio Freight standard: buttery smooth inertial momentum scrolling
@@ -59,7 +60,7 @@ export function LandingPage({ onEnter }: LandingPageProps) {
         <StatsStrip />
         <FaqSection />
       </main>
-      <LandingFooter onEnter={onEnter} />
+      <LandingFooter onEnter={onEnter} onNavigateLegal={onNavigateLegal} />
     </div>
   );
 }

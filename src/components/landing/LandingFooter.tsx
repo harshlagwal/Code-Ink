@@ -4,9 +4,10 @@ import { fadeUp, fade, stagger } from '../../motion/variants';
 
 interface LandingFooterProps {
   onEnter: () => void;
+  onNavigateLegal?: (tab: 'privacy' | 'terms') => void;
 }
 
-export function LandingFooter({ onEnter }: LandingFooterProps) {
+export function LandingFooter({ onEnter, onNavigateLegal }: LandingFooterProps) {
   const reduce = useReducedMotion();
 
   const scrollToTop = () => {
@@ -65,6 +66,30 @@ export function LandingFooter({ onEnter }: LandingFooterProps) {
 
             <div className="space-y-2">
               <div className="font-mono text-[10px] uppercase font-bold text-accent tracking-wider">
+                Legal & Safety
+              </div>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => onNavigateLegal?.('privacy')}
+                  className="hover:text-ink transition-colors cursor-pointer text-left"
+                >
+                  Privacy Policy
+                </button>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => onNavigateLegal?.('terms')}
+                  className="hover:text-ink transition-colors cursor-pointer text-left"
+                >
+                  Terms of Service
+                </button>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <div className="font-mono text-[10px] uppercase font-bold text-accent tracking-wider">
                 Community
               </div>
               <div>
@@ -104,7 +129,23 @@ export function LandingFooter({ onEnter }: LandingFooterProps) {
             <span className="font-handwritten text-sm text-ink">crafted for learners</span>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4 flex-wrap">
+            <button
+              type="button"
+              onClick={() => onNavigateLegal?.('privacy')}
+              className="text-muted hover:text-ink transition-colors cursor-pointer"
+            >
+              Privacy Policy
+            </button>
+            <span>·</span>
+            <button
+              type="button"
+              onClick={() => onNavigateLegal?.('terms')}
+              className="text-muted hover:text-ink transition-colors cursor-pointer"
+            >
+              Terms
+            </button>
+            <span>·</span>
             <button
               type="button"
               onClick={scrollToTop}

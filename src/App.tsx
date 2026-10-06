@@ -20,18 +20,40 @@ import { ToolsVaultView } from './components/tools/ToolsVaultView';
 import { MobileDeviceNoticeModal } from './components/MobileDeviceNoticeModal';
 import { MobileDiaryReader } from './components/mobile/MobileDiaryReader';
 import { LandingPage } from './components/landing/LandingPage';
+import { LegalView, LegalTab } from './components/legal/LegalView';
 import { useViewportMode } from './hooks/useViewportMode';
 import { C_FINAL_ASSESSMENT } from './data/cAssessment';
 import { notebookAudio } from './utils/audioEffects';
 import { PanelLeftClose, PanelLeftOpen, Award, Brain, Bot, AlertCircle, PenTool, Compass } from 'lucide-react';
 
-type ViewMode = 'landing' | 'home' | 'notebook' | 'library' | 'bookmarks' | 'progress' | 'ai-desk' | 'whiteboard' | 'tools';
+type ViewMode = 'landing' | 'home' | 'notebook' | 'library' | 'bookmarks' | 'progress' | 'ai-desk' | 'whiteboard' | 'tools' | 'privacy' | 'terms';
+
+const parseInitialView = (): ViewMode => {
+  try {
+    const path = window.location.pathname.toLowerCase().replace(/\/$/, '');
+    const params = new URLSearchParams(window.location.search);
+    const viewParam = params.get('view')?.toLowerCase();
+
+    if (path === '/privacy' || viewParam === 'privacy') return 'privacy';
+    if (path === '/terms' || viewParam === 'terms') return 'terms';
+    if (path === '/tools' || viewParam === 'tools') return 'tools';
+    if (path === '/notebook' || viewParam === 'notebook') return 'notebook';
+    if (path === '/library' || viewParam === 'library') return 'library';
+    if (path === '/progress' || viewParam === 'progress') return 'progress';
+    if (path === '/bookmarks' || viewParam === 'bookmarks') return 'bookmarks';
+    if (path === '/whiteboard' || viewParam === 'whiteboard') return 'whiteboard';
+    if (path === '/ai-desk' || viewParam === 'ai-desk') return 'ai-desk';
+  } catch {
+    // fallback to landing
+  }
+  return 'landing';
+};
 
 export default function App() {
   const { mode: viewportMode } = useViewportMode();
 
   // Selected State
-  const [currentView, setCurrentView] = useState<ViewMode>('landing');
+  const [currentView, setCurrentView] = useState<ViewMode>(parseInitialView);
   const [isOpeningAnimation, setIsOpeningAnimation] = useState(false);
   const [isBookClosed, setIsBookClosed] = useState(false);
   // Incremented each time the user enters the notebook — forces the cover animation to replay
@@ -369,21 +391,45 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [currentView, handlePrev, handleNext, handleToggleBookmark]);
 
+  // Synchronize browser history and views
+  const navigateToView = useCallback((view: ViewMode) => {
+    setCurrentView(view);
+    setMobileMenuOpen(false);
+    try {
+      if (view === 'privacy') {
+        window.history.pushState({ view }, '', '/privacy');
+      } else if (view === 'terms') {
+        window.history.pushState({ view }, '', '/terms');
+      } else if (view === 'landing') {
+        window.history.pushState({ view }, '', '/');
+      } else {
+        window.history.pushState({ view }, '', `/?view=${view}`);
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentView(parseInitialView());
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   // Lookup active chapter title
   const activeChapter = activeSubject.chapters.find(c => c.id === activeTopic.chapterId);
   const activeChapterTitle = activeChapter ? activeChapter.title : 'Chapter';
 
   return (
     <>
-      <div className={`min-h-screen bg-app text-ink flex flex-col font-sans tool-selection-${selectedTool} overflow-x-hidden ${currentView === 'landing' ? 'pb-0' : currentView === 'whiteboard' ? 'pb-0 overflow-hidden h-screen bg-[#1A1918]' : currentView === 'ai-desk' ? 'pb-0 overflow-hidden h-screen bg-app' : (currentView === 'notebook' && viewportMode === 'diary') ? 'pb-0 h-[100dvh] overflow-hidden' : 'pb-16'} ${isFinalPaperOpen ? 'print:hidden' : ''}`}>
-      {/* Top Navbar (Hidden on Landing Page & during Mobile Diary View) */}
-      {!(currentView === 'landing' || (currentView === 'notebook' && viewportMode === 'diary')) && (
+      <div className={`min-h-screen bg-app text-ink flex flex-col font-sans tool-selection-${selectedTool} overflow-x-hidden ${currentView === 'landing' || currentView === 'privacy' || currentView === 'terms' ? 'pb-0' : currentView === 'whiteboard' ? 'pb-0 overflow-hidden h-screen bg-[#1A1918]' : currentView === 'ai-desk' ? 'pb-0 overflow-hidden h-screen bg-app' : (currentView === 'notebook' && viewportMode === 'diary') ? 'pb-0 h-[100dvh] overflow-hidden' : 'pb-16'} ${isFinalPaperOpen ? 'print:hidden' : ''}`}>
+      {/* Top Navbar (Hidden on Landing Page, Legal Pages & during Mobile Diary View) */}
+      {!(currentView === 'landing' || currentView === 'privacy' || currentView === 'terms' || (currentView === 'notebook' && viewportMode === 'diary')) && (
         <Navbar
           currentView={currentView}
-          onNavigate={(view) => {
-            setCurrentView(view);
-            setMobileMenuOpen(false);
-          }}
+          onNavigate={(view) => navigateToView(view)}
           onOpenSearch={() => setIsSearchOpen(true)}
           paperStyle={paperStyle}
           onChangePaperStyle={setPaperStyle}
@@ -395,7 +441,7 @@ export default function App() {
           onToggleMute={handleToggleMute}
           onOpenAIStudyDesk={() => {
             setAiStudyDeskSnippet(undefined);
-            setCurrentView('ai-desk');
+            navigateToView('ai-desk');
           }}
           onOpenRevisionMode={() => setIsRevisionSessionOpen(true)}
         />
@@ -403,7 +449,7 @@ export default function App() {
 
       {/* Main View Router */}
       <div className={`flex-1 w-full flex flex-col transition-all duration-300 ${
-        currentView === 'landing'
+        currentView === 'landing' || currentView === 'privacy' || currentView === 'terms'
           ? 'p-0 max-w-full'
           : currentView === 'ai-desk'
           ? 'p-0 max-w-full overflow-hidden'
@@ -417,7 +463,7 @@ export default function App() {
               setIsBookClosed(false);
               setAnimationKey(k => k + 1);  // new key → NotebookCover remounts fresh
               setIsOpeningAnimation(false);  // mount in CLOSED state first
-              setCurrentView('home');
+              navigateToView('home');
               recordRecentTopic(activeTopic.id);
               // Step 1: let the closed cover render for one frame (~60ms)
               // Step 2: trigger the cover flip
@@ -426,9 +472,21 @@ export default function App() {
                 setIsOpeningAnimation(true);
                 setTimeout(() => {
                   setIsOpeningAnimation(false);
-                  setCurrentView('notebook');
+                  navigateToView('notebook');
                 }, 950);
               }, 60);
+            }}
+            onNavigateLegal={(tab) => navigateToView(tab)}
+          />
+        )}
+
+        {(currentView === 'privacy' || currentView === 'terms') && (
+          <LegalView
+            initialTab={currentView === 'privacy' ? 'privacy' : 'terms'}
+            onGoBack={() => navigateToView('landing')}
+            onGoToNotebook={() => {
+              setIsBookClosed(false);
+              navigateToView('notebook');
             }}
           />
         )}
@@ -759,7 +817,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => {
-                  setCurrentView('notebook');
+                  navigateToView('notebook');
                   setMobileMenuOpen(false);
                 }}
                 className="p-2 text-xs font-medium text-left rounded bg-white border border-[#D9D4C8] text-stone-800 hover:bg-stone-50"
@@ -769,7 +827,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => {
-                  setCurrentView('library');
+                  navigateToView('library');
                   setMobileMenuOpen(false);
                 }}
                 className="p-2 text-xs font-medium text-left rounded bg-white border border-[#D9D4C8] text-stone-800 hover:bg-stone-50"
@@ -779,7 +837,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => {
-                  setCurrentView('tools');
+                  navigateToView('tools');
                   setMobileMenuOpen(false);
                 }}
                 className="p-2 text-xs font-medium text-left rounded bg-blue-50 border border-blue-200 text-[#2457D6] hover:bg-blue-100 font-semibold"
@@ -789,7 +847,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => {
-                  setCurrentView('bookmarks');
+                  navigateToView('bookmarks');
                   setMobileMenuOpen(false);
                 }}
                 className="p-2 text-xs font-medium text-left rounded bg-white border border-[#D9D4C8] text-stone-800 hover:bg-stone-50"
@@ -799,12 +857,22 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => {
-                  setCurrentView('progress');
+                  navigateToView('progress');
                   setMobileMenuOpen(false);
                 }}
-                className="p-2 text-xs font-medium text-left rounded bg-white border border-[#D9D4C8] text-stone-800 hover:bg-stone-50 col-span-2"
+                className="p-2 text-xs font-medium text-left rounded bg-white border border-[#D9D4C8] text-stone-800 hover:bg-stone-50"
               >
                 📊 Progress
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  navigateToView('privacy');
+                  setMobileMenuOpen(false);
+                }}
+                className="p-2 text-xs font-medium text-left rounded bg-white border border-[#D9D4C8] text-stone-800 hover:bg-stone-50 flex items-center gap-1.5"
+              >
+                <span>🛡️ Legal & Privacy</span>
               </button>
             </div>
 

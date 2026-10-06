@@ -77,23 +77,61 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "CODEINK",
-      "alternateName": "Code Ink",
-      "url": "https://code-ink-theta.vercel.app/",
-      "logo": "https://code-ink-theta.vercel.app/codeink-logo.webp",
-      "description": "Interactive physical-style digital programming notebook covering C, C++, Python, Java, JavaScript, and DSA with live compilation, memory tracing, and 100 free developer tools.",
-      "applicationCategory": "EducationalApplication",
-      "operatingSystem": "All",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "author": {
-        "@type": "Person",
-        "name": "Harsh Lagwal"
-      }
+      "@graph": [
+        {
+          "@type": "WebApplication",
+          "@id": "https://code-ink-theta.vercel.app/#webapp",
+          "name": "CODEINK",
+          "alternateName": ["Code Ink", "CodeInk Notebook"],
+          "url": "https://code-ink-theta.vercel.app/",
+          "logo": "https://code-ink-theta.vercel.app/codeink-logo.webp",
+          "image": "https://code-ink-theta.vercel.app/codeink-logo.webp",
+          "description": "CodeInk is an authentic digital physical engineering notebook and interactive Computer Science learning platform covering C, C++, Python, Java, JavaScript, and Data Structures & Algorithms. It features a zero-config multi-language online compiler, visual call-stack tracer, AI Study Desk, and 100 free developer tools.",
+          "applicationCategory": "EducationalApplication, DeveloperApplication",
+          "operatingSystem": "Web, All",
+          "inLanguage": "en",
+          "featureList": [
+            "Tactile physical notebook UI with ruled/grid/plain pages, highlighters, and sticky notes",
+            "Zero-config live online compiler for C, C++, Python 3, Java, and JavaScript",
+            "6 comprehensive curriculum tracks covering C, C++, Python, Java, JavaScript, and DSA",
+            "100 verified free developer tools and utilities directory",
+            "Hardware call-stack tracer and dry-run execution visualizer",
+            "AI Engineering Study Desk powered by Google Gemini",
+            "Adaptive revision flashcards and 50-mark final question papers with solution sets",
+            "100% client-side privacy with local browser storage and zero tracking"
+          ],
+          "knowsAbout": [
+            "Computer Science",
+            "C Programming",
+            "C++ Programming",
+            "Python Programming",
+            "Java Programming",
+            "JavaScript",
+            "Data Structures and Algorithms",
+            "Software Engineering Tools"
+          ],
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "Harsh Lagwal"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://code-ink-theta.vercel.app/#website",
+          "url": "https://code-ink-theta.vercel.app/",
+          "name": "CODEINK",
+          "description": "Interactive CS Learning Notebook & 100 Free Developer Tools",
+          "publisher": {
+            "@type": "Person",
+            "name": "Harsh Lagwal"
+          }
+        }
+      ]
     }
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
