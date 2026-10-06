@@ -3,7 +3,7 @@ import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import { useReducedMotion } from 'motion/react';
 import { MarketingNav } from './MarketingNav';
-import { Hero } from './Hero';
+import { TactileClayHero } from './TactileClayHero';
 import { LivingCanvasVisual } from './LivingCanvasVisual';
 import { FeatureGrid } from './FeatureGrid';
 import { LiveInteractiveSandbox } from './LiveInteractiveSandbox';
@@ -50,7 +50,7 @@ export function LandingPage({ onEnter, onNavigateLegal }: LandingPageProps) {
     <div className="min-h-screen bg-app text-ink selection:bg-accent/20 selection:text-accent font-sans">
       <MarketingNav onEnter={onEnter} />
       <main>
-        <Hero onEnter={onEnter} />
+        <TactileClayHero onEnter={onEnter} />
         <LivingCanvasVisual />
         <FeatureGrid />
         <LiveInteractiveSandbox onEnter={onEnter} />
