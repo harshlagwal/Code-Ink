@@ -5,7 +5,7 @@ import { subjectCards } from '../../data/landingStats';
 import { fadeUp, fade, stagger } from '../../motion/variants';
 
 interface SubjectsShowcaseProps {
-  onEnter: () => void;
+  onEnter: (subjectId?: string) => void;
 }
 
 const LANGUAGE_META: Record<
@@ -48,6 +48,18 @@ const LANGUAGE_META: Record<
     color: '#059669',
     badge: 'Big-O Analysis',
   },
+  dbms: {
+    code: 'SELECT e.name FROM emps e JOIN depts d ON e.dept_id = d.id;',
+    label: 'Relational Engines & ACID',
+    color: '#0284C7',
+    badge: 'SQL:2023 / Relational',
+  },
+  os: {
+    code: 'pid_t pid = fork(); if (pid == 0) execvp(...);',
+    label: 'Kernel Primitives & Concurrency',
+    color: '#059669',
+    badge: '30 Deep Chapters',
+  },
 };
 
 export function SubjectsShowcase({ onEnter }: SubjectsShowcaseProps) {
@@ -78,7 +90,7 @@ export function SubjectsShowcase({ onEnter }: SubjectsShowcaseProps) {
             variants={fadeUp}
             className="text-2xl sm:text-4xl font-extrabold text-ink tracking-tight"
           >
-            Six foundational volumes,{' '}
+            Eight comprehensive volumes,{' '}
             <span className="text-muted font-normal">documented from first principles.</span>
           </motion.h2>
         </div>
@@ -86,7 +98,7 @@ export function SubjectsShowcase({ onEnter }: SubjectsShowcaseProps) {
         <motion.button
           variants={fade}
           type="button"
-          onClick={onEnter}
+          onClick={() => onEnter()}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-raised border border-line hover:border-accent text-xs font-mono font-bold text-ink hover:text-accent self-start sm:self-auto transition-all shadow-2xs cursor-pointer group shrink-0"
         >
           <Sparkles className="w-3.5 h-3.5 text-accent" />
@@ -118,7 +130,7 @@ export function SubjectsShowcase({ onEnter }: SubjectsShowcaseProps) {
               key={sub.id}
               variants={fadeUp}
               onMouseEnter={() => setHoveredId(sub.id)}
-              onClick={onEnter}
+              onClick={() => onEnter(sub.id)}
               className="relative group p-4 sm:p-5 rounded-2xl cursor-pointer transition-all duration-200"
             >
               {/* Shared Liquid Glider Backdrop (Apple / macOS dock style) */}

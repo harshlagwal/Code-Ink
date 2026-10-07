@@ -11,12 +11,18 @@ import { JAVA_CHAPTERS } from './javaCurriculum';
 import { JAVA_FINAL_ASSESSMENT } from './javaAssessment';
 import { DSA_CHAPTERS } from './dsaCurriculum';
 import { DSA_FINAL_ASSESSMENT } from './dsaAssessment';
+import { DBMS_CHAPTERS } from './dbmsCurriculum';
+import { DBMS_FINAL_ASSESSMENT } from './dbmsAssessment';
+import { OS_CHAPTERS } from './osCurriculum';
+import { OS_FINAL_ASSESSMENT } from './osAssessment';
 import { C_QUESTION_PAPERS } from './questionPapers/cQuestionPapers';
 import { CPP_QUESTION_PAPERS } from './questionPapers/cppQuestionPapers';
 import { PYTHON_QUESTION_PAPERS } from './questionPapers/pythonQuestionPapers';
 import { JAVASCRIPT_QUESTION_PAPERS } from './questionPapers/javascriptQuestionPapers';
 import { JAVA_QUESTION_PAPERS } from './questionPapers/javaQuestionPapers';
 import { DSA_QUESTION_PAPERS } from './questionPapers/dsaQuestionPapers';
+import { DBMS_QUESTION_PAPERS } from './questionPapers/dbmsQuestionPapers';
+import { OS_QUESTION_PAPERS } from './questionPapers/osQuestionPapers';
 
 export const NOTEBOOK_SUBJECTS: Subject[] = [
   {
@@ -102,6 +108,34 @@ export const NOTEBOOK_SUBJECTS: Subject[] = [
     chapters: DSA_CHAPTERS,
     finalAssessment: DSA_FINAL_ASSESSMENT,
     questionPapers: DSA_QUESTION_PAPERS
+  },
+  {
+    id: 'dbms',
+    name: 'Database Management Systems & SQL',
+    category: 'cs',
+    shortCode: 'DBMS',
+    shortName: 'DBMS & SQL',
+    tagline: 'Relational data models, declarative SQL, normalization, ACID transactions & B+ Tree storage engine internals',
+    iconName: 'Database',
+    color: '#0284C7',
+    status: 'active',
+    chapters: DBMS_CHAPTERS,
+    finalAssessment: DBMS_FINAL_ASSESSMENT,
+    questionPapers: DBMS_QUESTION_PAPERS
+  },
+  {
+    id: 'os',
+    name: 'Operating Systems',
+    category: 'cs',
+    shortCode: 'OS',
+    shortName: 'Operating Systems',
+    tagline: 'Kernel architectures, CPU scheduling, concurrency, paging, virtual memory & Linux system primitives',
+    iconName: 'Cpu',
+    color: '#059669',
+    status: 'active',
+    chapters: OS_CHAPTERS,
+    finalAssessment: OS_FINAL_ASSESSMENT,
+    questionPapers: OS_QUESTION_PAPERS
   }
 ];
 

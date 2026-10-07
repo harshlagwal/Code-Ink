@@ -11,7 +11,7 @@ interface FaqItem {
 const FAQ_LIST: FaqItem[] = [
   {
     q: 'Is CODEINK completely free to use?',
-    a: 'Yes, CODEINK is 100% free. There are no paywalls, subscriptions, or hidden tiers. All 148 curriculum study pages, 18 exam papers, the margin compiler, memory tracer, and 100 dev tools are openly accessible to every student.',
+    a: 'Yes, CODEINK is 100% free. There are no paywalls, subscriptions, or hidden tiers. All 182 curriculum master chapters across 200 study pages, 24 university exam papers, the margin compiler, memory tracer, and 100 dev tools are openly accessible to every student.',
   },
   {
     q: 'Do I need to create an account or sign in?',
@@ -27,7 +27,7 @@ const FAQ_LIST: FaqItem[] = [
   },
   {
     q: 'Are the question papers modeled after real university exams?',
-    a: 'Yes. CODEINK provides 18 full 50-mark exam papers (Set A, Set B, and Set C for all 6 subjects) complete with section breakdowns, question choices, time allotments, and detailed marking criteria.',
+    a: 'Yes. CODEINK provides 24 full 50-mark exam papers (Set A, Set B, and Set C for all 8 subjects) complete with section breakdowns, question choices, time allotments, and detailed marking criteria.',
   },
   {
     q: 'Can I study on a smartphone or tablet?',

@@ -41,6 +41,9 @@
 
 </div>
 
+> 🌟 **If you find CODEINK inspiring or helpful, please give this repository a star!**  
+> It helps this open-source project reach more students, educators, and engineers across the globe.
+
 ---
 
 ## 🌟 What is CODEINK?

@@ -1,4 +1,4 @@
-import { Search, Grid3X3, AlignJustify, Square, Menu, X, BookOpen, Award, Volume2, VolumeX, Bot, Brain, AlertCircle, PenTool, Compass } from 'lucide-react';
+import { Search, Grid3X3, AlignJustify, Square, Menu, X, BookOpen, Award, Volume2, VolumeX, Bot, Brain, AlertCircle, PenTool, Compass, Github } from 'lucide-react';
 import { PaperStyle } from '../types/notebook';
 import { ThemeToggle } from './ThemeToggle';
 
@@ -99,20 +99,6 @@ export function Navbar({
 
           <button
             type="button"
-            onClick={() => onNavigate('whiteboard')}
-            className={`flex items-center gap-1.5 transition-colors whitespace-nowrap ${
-              currentView === 'whiteboard'
-                ? 'text-accent font-semibold border-b-2 border-accent pb-0.5'
-                : 'hover:text-ink'
-            }`}
-            title="Open Engineering Whiteboard & Drafting Desk"
-          >
-            <PenTool className="w-3.5 h-3.5 text-accent" />
-            <span>Drafting Desk</span>
-          </button>
-
-          <button
-            type="button"
             onClick={() => onNavigate('tools')}
             className={`flex items-center gap-1.5 transition-colors whitespace-nowrap ${
               currentView === 'tools'
@@ -202,6 +188,19 @@ export function Navbar({
             <ThemeToggle />
           </div>
 
+          {/* GitHub Star Link */}
+          <a
+            href="https://github.com/harshlagwal/Code-Ink"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Star CODEINK on GitHub"
+            className="hidden lg:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-line bg-raised hover:bg-page text-xs font-semibold text-ink transition-colors shadow-2xs group"
+          >
+            <Github className="w-3.5 h-3.5 text-ink group-hover:text-accent transition-colors" />
+            <span className="hidden xl:inline">Star</span>
+            <span className="text-amber-500 font-bold">★</span>
+          </a>
+
           {/* Stationery Sound FX Toggle */}
           {onToggleMute && (
             <button
@@ -218,23 +217,6 @@ export function Navbar({
             </button>
           )}
 
-          {/* AI Study Desk Trigger */}
-          {onOpenAIStudyDesk && (
-            <button
-              type="button"
-              onClick={onOpenAIStudyDesk}
-              className={`hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border transition-all text-xs font-semibold whitespace-nowrap shrink-0 cursor-pointer shadow-2xs ${
-                currentView === 'ai-desk'
-                  ? 'border-indigo-600 bg-indigo-600 text-white shadow-xs'
-                  : 'border-indigo-200/90 dark:border-indigo-800/80 bg-indigo-50/80 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-600 hover:text-white'
-              }`}
-              title="Open AI Engineering Study Desk"
-            >
-              <Bot className="w-3.5 h-3.5 shrink-0" />
-              <span className="whitespace-nowrap inline-block leading-none">AI Desk</span>
-            </button>
-          )}
-
           {/* Search Trigger */}
           <button
             type="button"
@@ -248,19 +230,6 @@ export function Navbar({
               Ctrl K
             </kbd>
           </button>
-
-          {/* Question Paper Trigger */}
-          {onOpenFinalPaper && (
-            <button
-              type="button"
-              onClick={onOpenFinalPaper}
-              className="hidden lg:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-[#2457D6]/40 bg-blue-50/50 text-[#2457D6] hover:bg-[#2457D6] hover:text-white transition-all text-xs font-semibold whitespace-nowrap shrink-0 shadow-2xs cursor-pointer"
-              title="Official Question Paper Examination (50 Marks · 3 Sets)"
-            >
-              <Award className="w-3.5 h-3.5 shrink-0" />
-              <span className="whitespace-nowrap">Question Paper (50M)</span>
-            </button>
-          )}
         </div>
       </div>
     </header>

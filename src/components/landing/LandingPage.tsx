@@ -13,9 +13,10 @@ import { SubjectsShowcase } from './SubjectsShowcase';
 import { StatsStrip } from './StatsStrip';
 import { FaqSection } from './FaqSection';
 import { LandingFooter } from './LandingFooter';
+import { FrostedFogReveal } from './FrostedFogReveal';
 
 interface LandingPageProps {
-  onEnter: () => void;
+  onEnter: (subjectId?: string) => void;
   onNavigateLegal?: (tab: 'privacy' | 'terms') => void;
 }
 
@@ -48,6 +49,7 @@ export function LandingPage({ onEnter, onNavigateLegal }: LandingPageProps) {
   }, [reduce]);
   return (
     <div className="min-h-screen bg-app text-ink selection:bg-accent/20 selection:text-accent font-sans">
+      <FrostedFogReveal />
       <MarketingNav onEnter={onEnter} />
       <main>
         <TactileClayHero onEnter={onEnter} />

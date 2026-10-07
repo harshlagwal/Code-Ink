@@ -37,12 +37,22 @@ const parseInitialView = (): ViewMode => {
     if (path === '/privacy' || viewParam === 'privacy') return 'privacy';
     if (path === '/terms' || viewParam === 'terms') return 'terms';
     if (path === '/tools' || viewParam === 'tools') return 'tools';
-    if (path === '/notebook' || viewParam === 'notebook') return 'notebook';
-    if (path === '/library' || viewParam === 'library') return 'library';
-    if (path === '/progress' || viewParam === 'progress') return 'progress';
-    if (path === '/bookmarks' || viewParam === 'bookmarks') return 'bookmarks';
-    if (path === '/whiteboard' || viewParam === 'whiteboard') return 'whiteboard';
-    if (path === '/ai-desk' || viewParam === 'ai-desk') return 'ai-desk';
+
+    // When reloading/refreshing from notebook or study views, always reset to landing page
+    if (
+      path === '/notebook' || viewParam === 'notebook' ||
+      path === '/home' || viewParam === 'home' ||
+      path === '/library' || viewParam === 'library' ||
+      path === '/progress' || viewParam === 'progress' ||
+      path === '/bookmarks' || viewParam === 'bookmarks' ||
+      path === '/whiteboard' || viewParam === 'whiteboard' ||
+      path === '/ai-desk' || viewParam === 'ai-desk'
+    ) {
+      if (typeof window !== 'undefined' && window.history && window.history.replaceState) {
+        window.history.replaceState({ view: 'landing' }, '', '/');
+      }
+      return 'landing';
+    }
   } catch {
     // fallback to landing
   }
@@ -66,10 +76,31 @@ export default function App() {
       return true;
     }
   });
-  const [activeSubject, setActiveSubject] = useState<Subject>(NOTEBOOK_SUBJECTS[0]);
-  const [activeTopic, setActiveTopic] = useState<TopicContent>(
-    NOTEBOOK_SUBJECTS[0].chapters[0].topics[0]
-  );
+  const [activeSubject, setActiveSubject] = useState<Subject>(() => {
+    try {
+      const savedSubId = localStorage.getItem('codeink_active_subject_id');
+      if (savedSubId) {
+        const found = NOTEBOOK_SUBJECTS.find(s => s.id === savedSubId);
+        if (found) return found;
+      }
+    } catch {}
+    return NOTEBOOK_SUBJECTS[0];
+  });
+  const [activeTopic, setActiveTopic] = useState<TopicContent>(() => {
+    try {
+      const savedTopicId = localStorage.getItem('codeink_active_topic_id');
+      if (savedTopicId) {
+        const match = findTopicById(savedTopicId);
+        if (match) return match.topic;
+      }
+      const savedSubId = localStorage.getItem('codeink_active_subject_id');
+      if (savedSubId) {
+        const foundSub = NOTEBOOK_SUBJECTS.find(s => s.id === savedSubId);
+        if (foundSub?.chapters[0]?.topics[0]) return foundSub.chapters[0].topics[0];
+      }
+    } catch {}
+    return NOTEBOOK_SUBJECTS[0].chapters[0].topics[0];
+  });
   const [paperStyle, setPaperStyle] = useState<PaperStyle>('ruled');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -192,6 +223,18 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem('codeink_recent', JSON.stringify(recentTopicIds));
   }, [recentTopicIds]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('codeink_active_subject_id', activeSubject.id);
+    } catch {}
+  }, [activeSubject.id]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('codeink_active_topic_id', activeTopic.id);
+    } catch {}
+  }, [activeTopic.id]);
 
   const handleToggleMute = () => {
     const next = notebookAudio.toggleMute();
@@ -459,7 +502,16 @@ export default function App() {
       }`}>
         {currentView === 'landing' && (
           <LandingPage
-            onEnter={() => {
+            onEnter={(subjectId?: string) => {
+              if (subjectId) {
+                const targetSub = NOTEBOOK_SUBJECTS.find(s => s.id === subjectId);
+                if (targetSub) {
+                  setActiveSubject(targetSub);
+                  if (targetSub.chapters[0]?.topics[0]) {
+                    setActiveTopic(targetSub.chapters[0].topics[0]);
+                  }
+                }
+              }
               setIsBookClosed(false);
               setAnimationKey(k => k + 1);  // new key → NotebookCover remounts fresh
               setIsOpeningAnimation(false);  // mount in CLOSED state first

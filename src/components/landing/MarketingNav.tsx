@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'motion/react';
-import { ArrowRight, Menu, X, BookOpen, ChevronDown } from 'lucide-react';
+import { ArrowRight, Menu, X, BookOpen, ChevronDown, Github } from 'lucide-react';
 import { ThemeToggle } from '../ThemeToggle';
 import { subjectCards } from '../../data/landingStats';
 
 interface MarketingNavProps {
-  onEnter: () => void;
+  onEnter: (subjectId?: string) => void;
 }
 
 export function MarketingNav({ onEnter }: MarketingNavProps) {
@@ -119,6 +119,21 @@ export function MarketingNav({ onEnter }: MarketingNavProps) {
 
         {/* Right Action Cluster */}
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          {/* GitHub Star Pill Button */}
+          <a
+            href="https://github.com/harshlagwal/Code-Ink"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Star CODEINK on GitHub"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-line bg-raised/80 hover:bg-raised text-ink text-xs font-semibold shadow-2xs hover:shadow-xs hover:border-accent/40 active:scale-95 transition-all cursor-pointer group"
+          >
+            <Github className="w-3.5 h-3.5 text-ink group-hover:text-accent transition-colors" />
+            <span>Star</span>
+            <span className="flex items-center gap-0.5 text-[11px] font-mono font-bold text-amber-500">
+              ★
+            </span>
+          </a>
+
           <div className="hidden sm:flex items-center">
             <ThemeToggle compact />
           </div>
@@ -126,7 +141,7 @@ export function MarketingNav({ onEnter }: MarketingNavProps) {
           {/* High-Contrast Bold CTA (Single-line, professional spacing on mobile) */}
           <button
             type="button"
-            onClick={onEnter}
+            onClick={() => onEnter()}
             className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-xl bg-[#2457D6] hover:bg-blue-700 text-white dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-100 px-3 sm:px-5 py-2 text-xs sm:text-sm font-bold shadow-xs hover:shadow active:scale-[0.97] transition-all cursor-pointer"
           >
             <span>Go to Notebook</span>
@@ -195,7 +210,7 @@ export function MarketingNav({ onEnter }: MarketingNavProps) {
                       type="button"
                       onClick={() => {
                         setIsCurriculumOpen(false);
-                        onEnter();
+                        onEnter(sub.id);
                       }}
                       className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-raised dark:hover:bg-page transition-colors text-left group cursor-pointer"
                     >
@@ -270,6 +285,21 @@ export function MarketingNav({ onEnter }: MarketingNavProps) {
             <span className="text-xs font-semibold text-muted">Appearance / Theme</span>
             <ThemeToggle compact />
           </div>
+
+          {/* GitHub Star Row */}
+          <a
+            href="https://github.com/harshlagwal/Code-Ink"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMobileMenuOpen(false)}
+            className="flex items-center justify-between py-2.5 px-3 rounded-xl bg-raised/80 hover:bg-raised border border-line text-xs font-semibold text-ink transition-colors"
+          >
+            <span className="flex items-center gap-2">
+              <Github className="w-4 h-4 text-ink" />
+              <span>Star CODEINK on GitHub</span>
+            </span>
+            <span className="text-amber-500 font-bold font-mono">★ Open Source</span>
+          </a>
 
           <div className="pt-1 border-t border-line">
             <button

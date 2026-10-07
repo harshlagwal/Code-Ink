@@ -108,7 +108,7 @@ export function Hero({ onEnter }: HeroProps) {
                 01 / Curriculum
               </span>
               <div className="text-xs sm:text-sm font-bold text-ink truncate mb-1">
-                6 Core Volumes
+                8 Core Volumes
               </div>
               <div className="flex items-center gap-1.5 text-[11px] font-mono text-muted">
                 <span className="inline-flex gap-1 items-center">
@@ -117,7 +117,7 @@ export function Hero({ onEnter }: HeroProps) {
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                 </span>
-                <span className="truncate">C · Py · JS · DSA</span>
+                <span className="truncate">180+ Ch · C to OS</span>
               </div>
             </div>
 

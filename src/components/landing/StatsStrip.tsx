@@ -4,10 +4,10 @@ import { landingStats } from '../../data/landingStats';
 import { fadeUp, fade, stagger, lineReveal } from '../../motion/variants';
 
 const STATS_ITEMS = [
-  { value: landingStats.subjects, label: 'Curriculum Volumes', sub: 'C, C++, Python, JS, Java, DSA' },
-  { value: landingStats.topics, label: 'Study Pages', sub: 'Definitions & implementations' },
-  { value: landingStats.tools, label: 'Developer Tools', sub: 'Verified student free tiers' },
-  { value: landingStats.papers, label: 'Examination Sets', sub: '50-mark full university rubrics' },
+  { value: landingStats.subjects, label: 'Curriculum Volumes', sub: '8 Subjects (C to OS)' },
+  { value: landingStats.chapters, label: 'Master Chapters', sub: '180+ Basic to Advanced' },
+  { value: landingStats.topics, label: 'Study Pages', sub: 'Annotated Code & Diagrams' },
+  { value: landingStats.papers, label: 'Examination Sets', sub: '24 Official 50-mark sets' },
 ];
 
 /** Animated count-up hook */

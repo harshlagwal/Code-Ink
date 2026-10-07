@@ -29,7 +29,7 @@ export const SPREADS: SpreadData[] = [
     chapterTitle: 'Master Computer Science',
     subTitle: '01 / Dynamic Memory & Pointers',
     badgeText: 'GCC 13 · 0ms',
-    badgeColor: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300',
+    badgeColor: 'bg-emerald-500/15 text-emerald-800 font-bold',
     leftPageHeader: 'Memory Architecture',
     leftPageSub: 'Physical Address Pointer Table',
     lang: 'c',
@@ -56,7 +56,7 @@ int main() {
     chapterTitle: 'Zero-Cost Abstractions',
     subTitle: '02 / Stack Frames & Vectors',
     badgeText: 'Clang 17 · 0ms',
-    badgeColor: 'bg-blue-500/15 text-blue-700 dark:text-blue-300',
+    badgeColor: 'bg-blue-500/15 text-blue-800 font-bold',
     leftPageHeader: 'Call Stack Frame',
     leftPageSub: 'RBP Base Pointer & Offsets',
     lang: 'cpp',
@@ -79,7 +79,7 @@ int main() {
     chapterTitle: 'Python Memory Runtime',
     subTitle: '03 / PyObject & Bytecode',
     badgeText: 'Python 3.12 · 0ms',
-    badgeColor: 'bg-amber-500/15 text-amber-700 dark:text-amber-300',
+    badgeColor: 'bg-amber-500/15 text-amber-800 font-bold',
     leftPageHeader: 'PyObject Heap Layout',
     leftPageSub: 'Reference Count & Type Ptr',
     lang: 'python',
@@ -101,7 +101,7 @@ print(f"Ref count: {sys.getrefcount(head)}")`,
     chapterTitle: 'Algorithms & Recursion',
     subTitle: '04 / Balanced Search Trees',
     badgeText: 'DSA · O(log N)',
-    badgeColor: 'bg-purple-500/15 text-purple-700 dark:text-purple-300',
+    badgeColor: 'bg-purple-500/15 text-purple-800 font-bold',
     leftPageHeader: 'Binary Search Tree',
     leftPageSub: 'Recursive Subtree Balancing',
     lang: 'c',
@@ -120,8 +120,8 @@ print(f"Ref count: {sys.getrefcount(head)}")`,
     id: 5,
     chapterTitle: 'Exam Vault & Rubrics',
     subTitle: '05 / Official Semester Grading',
-    badgeText: '18 Papers · 100% Free',
-    badgeColor: 'bg-emerald-600/15 text-emerald-700 dark:text-emerald-300',
+    badgeText: '24 Papers · 100% Free',
+    badgeColor: 'bg-emerald-600/15 text-emerald-800 font-bold',
     leftPageHeader: 'University Rubric Sheet',
     leftPageSub: 'Automated Test Suite Verified',
     lang: 'c',
@@ -195,17 +195,17 @@ function SpreadDiagram({ type }: { type: SpreadData['diagramType'] }) {
   if (type === 'cpp-stack') {
     return (
       <div className="w-full max-w-[320px] font-mono text-[9.5px] sm:text-[10px] space-y-2">
-        <div className="p-2 rounded-lg bg-blue-500/10 text-blue-900 dark:text-blue-200 font-bold border border-blue-400/40 flex justify-between shadow-2xs">
+        <div className="p-2 rounded-lg bg-blue-500/10 text-blue-950 font-bold border border-blue-400/40 flex justify-between shadow-2xs">
           <span>[RBP + 16] Return Address</span>
-          <span className="text-blue-700 dark:text-blue-300">0x7fffffffe0</span>
+          <span className="text-blue-800 font-semibold">0x7fffffffe0</span>
         </div>
-        <div className="p-2 rounded-lg bg-amber-500/10 text-amber-900 dark:text-amber-200 font-bold border border-amber-400/40 flex justify-between shadow-2xs">
+        <div className="p-2 rounded-lg bg-amber-500/10 text-amber-950 font-bold border border-amber-400/40 flex justify-between shadow-2xs">
           <span>[RBP - 08] Saved Old RBP</span>
-          <span className="text-amber-700 dark:text-amber-300">0x7fffffffd8</span>
+          <span className="text-amber-800 font-semibold">0x7fffffffd8</span>
         </div>
-        <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-900 dark:text-emerald-200 font-bold border border-emerald-400/40 flex justify-between shadow-2xs">
+        <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-950 font-bold border border-emerald-400/40 flex justify-between shadow-2xs">
           <span>[RBP - 32] std::vector data*</span>
-          <span className="text-emerald-700 dark:text-emerald-300">Heap Ptr ➔</span>
+          <span className="text-emerald-800 font-semibold">Heap Ptr ➔</span>
         </div>
       </div>
     );
@@ -214,17 +214,17 @@ function SpreadDiagram({ type }: { type: SpreadData['diagramType'] }) {
   if (type === 'python-pyobject') {
     return (
       <div className="w-full max-w-[320px] font-mono text-[9.5px] sm:text-[10px] space-y-2">
-        <div className="p-2 rounded-lg bg-amber-500/10 text-amber-900 dark:text-amber-200 font-bold border border-amber-400/40 flex justify-between shadow-2xs">
+        <div className="p-2 rounded-lg bg-amber-500/10 text-amber-950 font-bold border border-amber-400/40 flex justify-between shadow-2xs">
           <span>PyObject_HEAD</span>
-          <span className="text-amber-700 dark:text-amber-300">ob_refcnt = 1</span>
+          <span className="text-amber-800 font-semibold">ob_refcnt = 1</span>
         </div>
-        <div className="p-2 rounded-lg bg-purple-500/10 text-purple-900 dark:text-purple-200 font-bold border border-purple-400/40 flex justify-between shadow-2xs">
+        <div className="p-2 rounded-lg bg-purple-500/10 text-purple-950 font-bold border border-purple-400/40 flex justify-between shadow-2xs">
           <span>*ob_type</span>
-          <span className="text-purple-700 dark:text-purple-300">&lt;class 'Node'&gt;</span>
+          <span className="text-purple-800 font-semibold">&lt;class 'Node'&gt;</span>
         </div>
-        <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-900 dark:text-emerald-200 font-bold border border-emerald-400/40 flex justify-between shadow-2xs">
+        <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-950 font-bold border border-emerald-400/40 flex justify-between shadow-2xs">
           <span>__slots__ payload</span>
-          <span className="text-emerald-700 dark:text-emerald-300">val=42, next=None</span>
+          <span className="text-emerald-800 font-semibold">val=42, next=None</span>
         </div>
       </div>
     );
@@ -305,25 +305,25 @@ function LeftNotebookPage({
         <div className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-wider text-[#13449b] font-bold">
           <span>{spread.leftPageSub}</span>
         </div>
-        <span className="font-mono text-[9px] text-neutral-400">
+        <span className="font-mono text-[9px] text-neutral-500 font-medium">
           Pg {String(pageNum).padStart(2, '0')}
         </span>
       </div>
 
       {/* Center Architectural Diagram */}
       <div className="relative w-full flex-1 flex flex-col items-center justify-center pl-3 sm:pl-5 my-1 z-10">
-        <h4 className="font-serif italic text-sm sm:text-base lg:text-lg font-bold tracking-wide text-slate-800 dark:text-neutral-200 mb-2 transform -rotate-1 self-center">
+        <h4 className="font-serif italic text-sm sm:text-base lg:text-lg font-bold tracking-wide text-slate-900 mb-2 transform -rotate-1 self-center">
           {spread.leftPageHeader}
         </h4>
         <SpreadDiagram type={spread.diagramType} />
       </div>
 
       {/* Bottom Footer */}
-      <div className="pl-3 sm:pl-5 pt-1.5 border-t border-line/60 flex items-center justify-between text-[10px] font-mono text-neutral-500 z-10">
-        <span className="font-handwritten text-xs text-neutral-600 font-bold">
+      <div className="pl-3 sm:pl-5 pt-1.5 border-t border-stone-300 flex items-center justify-between text-[10px] font-mono text-neutral-600 z-10">
+        <span className="font-handwritten text-xs text-neutral-700 font-bold">
           Theory &amp; Visual Blueprint
         </span>
-        <span className="font-handwritten text-xs text-neutral-400">
+        <span className="font-handwritten text-xs text-neutral-500 font-medium">
           Page {String(pageNum).padStart(2, '0')}
         </span>
       </div>
@@ -331,40 +331,94 @@ function LeftNotebookPage({
   );
 }
 
-// Syntax Formatter for Natural Paper Code Rendering
+// Syntax Formatter for Natural Paper Code Rendering (Crisp Ink Typography)
 function SyntaxCodeViewer({ code }: { code: string }) {
   const lines = code.split('\n');
   return (
-    <pre className="font-mono text-[11px] sm:text-[11.5px] leading-[22px] tracking-tight">
+    <pre className="font-mono text-[11px] sm:text-[11.5px] leading-[22px] tracking-tight text-slate-900">
       {lines.map((line, i) => {
         const trimmed = line.trim();
         // Comment Line
-        if (trimmed.startsWith('//') || trimmed.startsWith('/*') || trimmed.startsWith('*') || trimmed.startsWith('# ')) {
+        if (
+          trimmed.startsWith('//') ||
+          trimmed.startsWith('/*') ||
+          trimmed.startsWith('*') ||
+          (trimmed.startsWith('#') && !trimmed.startsWith('#include') && !trimmed.startsWith('#define'))
+        ) {
           return (
-            <div key={i} className="text-slate-400 italic">
+            <div key={i} className="text-slate-500 italic">
               {line}
             </div>
           );
         }
 
-        // Split tokens and style keywords
-        const tokens = line.split(/(\s+|[(){}[\];,.<>:"'+=*/%#])/);
+        // C / C++ Preprocessor Line (#include <...>)
+        if (trimmed.startsWith('#include') || trimmed.startsWith('#define')) {
+          const match = line.match(/^(\s*)(#include|#define)(\s+)(<[^>]+>|"[^"]+"|\w+)(.*)$/);
+          if (match) {
+            const [, indent, directive, space, target, rest] = match;
+            return (
+              <div key={i} className="text-slate-900">
+                {indent}
+                <span className="text-purple-800 font-bold">{directive}</span>
+                {space}
+                <span className="text-emerald-800 font-semibold">{target}</span>
+                <span className="text-slate-900">{rest}</span>
+              </div>
+            );
+          }
+        }
+
+        // Split tokens and style keywords with rich ink pigments
+        const tokens = line.split(/(\s+|[(){}[\];,.<>:"'+=*/%#-])/);
         return (
-          <div key={i} className="text-slate-800 dark:text-slate-200">
+          <div key={i} className="text-slate-900">
             {tokens.map((token, tIdx) => {
-              if (/^(int|void|char|double|float|typedef|struct|class|def|import|return|if|else|sizeof|NULL|None|self|std|vector|printf|cout|__slots__|print)$/.test(token)) {
-                return <span key={tIdx} className="text-[#13449b] dark:text-[#7bb0ff] font-bold">{token}</span>;
+              if (
+                /^(int|void|char|double|float|typedef|struct|class|def|import|return|if|else|sizeof|NULL|None|self|std|vector|printf|cout|__slots__|print)$/.test(
+                  token
+                )
+              ) {
+                return (
+                  <span key={tIdx} className="text-[#13449b] font-bold">
+                    {token}
+                  </span>
+                );
               }
-              if (token.startsWith('"') || token.startsWith("'") || token.endsWith('"') || token.endsWith("'")) {
-                return <span key={tIdx} className="text-emerald-700 dark:text-emerald-400">{token}</span>;
+              if (
+                token.startsWith('"') ||
+                token.startsWith("'") ||
+                token.endsWith('"') ||
+                token.endsWith("'")
+              ) {
+                return (
+                  <span key={tIdx} className="text-emerald-800 font-semibold">
+                    {token}
+                  </span>
+                );
               }
               if (/^(0x[0-9a-fA-F]+|\d+)$/.test(token)) {
-                return <span key={tIdx} className="text-amber-700 dark:text-amber-400 font-semibold">{token}</span>;
+                return (
+                  <span key={tIdx} className="text-amber-800 font-semibold">
+                    {token}
+                  </span>
+                );
               }
-              if (token === '#include') {
-                return <span key={tIdx} className="text-purple-700 dark:text-purple-400 font-bold">{token}</span>;
+              if (token === '#include' || token === '#define') {
+                return (
+                  <span key={tIdx} className="text-purple-800 font-bold">
+                    {token}
+                  </span>
+                );
               }
-              return <span key={tIdx}>{token}</span>;
+              if (token === '->' || token === '*' || token === '&' || token === '=') {
+                return (
+                  <span key={tIdx} className="text-[#13449b] font-bold">
+                    {token}
+                  </span>
+                );
+              }
+              return <span key={tIdx} className="text-slate-900 font-normal">{token}</span>;
             })}
           </div>
         );
@@ -397,7 +451,7 @@ function RightNotebookPage({
       <div className="hidden md:block absolute left-0 top-0 bottom-0 w-14 spine-gutter-right z-10 pointer-events-none" />
 
       {/* Section Header with Sleek Compiler Stamp Tag */}
-      <header className="z-10 flex items-start justify-between pb-1.5 border-b border-stone-300/60">
+      <header className="z-10 flex items-start justify-between pb-1.5 border-b border-stone-300">
         <div>
           <span className="text-[9.5px] font-mono uppercase tracking-wider text-[#13449b] font-bold block mb-0.5">
             {spread.subTitle}
@@ -413,7 +467,7 @@ function RightNotebookPage({
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
             {spread.badgeText}
           </span>
-          <span className="font-mono text-[9px] text-neutral-400">
+          <span className="font-mono text-[9px] text-neutral-500 font-medium">
             Pg {String(pageNum).padStart(2, '0')}
           </span>
         </div>
@@ -425,12 +479,12 @@ function RightNotebookPage({
       </div>
 
       {/* Bottom Footer */}
-      <div className="pt-1.5 border-t border-line/60 flex items-center justify-between text-[10px] font-mono text-neutral-500 z-10">
-        <span className="text-[#13449b] font-semibold flex items-center gap-1">
+      <div className="pt-1.5 border-t border-stone-300 flex items-center justify-between text-[10px] font-mono text-neutral-600 z-10">
+        <span className="text-[#13449b] font-bold flex items-center gap-1">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
           Standard Output: Verified ✓
         </span>
-        <span className="font-handwritten text-xs text-neutral-400">
+        <span className="font-handwritten text-xs text-neutral-500 font-medium">
           Page {String(pageNum).padStart(2, '0')}
         </span>
       </div>
@@ -722,6 +776,17 @@ export function TactileClayHero({ onEnter }: TactileClayHeroProps) {
             <CheckCircle2 className="w-3.5 h-3.5 text-[#13449b] dark:text-[#9DB8FF]" />
             <span>Runs Locally in Browser</span>
           </div>
+          <span>·</span>
+          <a
+            href="https://github.com/harshlagwal/Code-Ink"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Support CODEINK with a Star on GitHub"
+            className="flex items-center gap-1.5 text-neutral-800 dark:text-neutral-200 hover:text-[#13449b] dark:hover:text-[#9DB8FF] transition-colors group cursor-pointer font-semibold"
+          >
+            <span className="text-amber-500 font-bold">★</span>
+            <span className="underline decoration-dotted underline-offset-4">Star on GitHub</span>
+          </a>
         </motion.div>
       </div>
 
@@ -836,7 +901,7 @@ export function TactileClayHero({ onEnter }: TactileClayHeroProps) {
             </div>
 
             {/* Notebook Paper Body with Real 3D Turning Sheet Layer */}
-            <div className="relative w-full h-full rounded-lg overflow-hidden flex bg-[#fbf9f5] dark:bg-[#1E1B16] z-10 transform-style-3d">
+            <div className="relative w-full h-full rounded-lg overflow-hidden flex bg-[#fbf9f5] z-10 transform-style-3d">
               
               {/* ======================================================== */}
               {/* DESKTOP VIEW: AUTHENTIC 2-PAGE SPREAD WITH 3D FLIP LEAF   */}

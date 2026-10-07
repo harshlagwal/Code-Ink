@@ -61,7 +61,9 @@ export function QuestionPaperModal({
 
   if (!isOpen) return null;
 
-  const subjectPapers = getSubjectQuestionPapers(selectedSubjectId);
+  const subjectPapers =
+    allSubjects.find(s => s.id === selectedSubjectId)?.questionPapers ||
+    getSubjectQuestionPapers(selectedSubjectId);
   const currentSet = subjectPapers.sets[activeSetId];
 
   const formatTimer = (secs: number) => {
